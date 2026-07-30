@@ -13,12 +13,19 @@ type Props = {
  * matching optimized .webp twin in public/images (see scripts/optimize-images.mjs).
  */
 export function Picture({ src, alt, width, height, className, loading = 'lazy' }: Props) {
-  const webpSrc = src.replace(/\.(jpe?g|png)$/i, '.webp');
+  // `src` is always an absolute path like "/images/foo.jpg", written assuming
+  // the app is served from the domain root. When deployed under a subpath
+  // (e.g. GitHub Pages project sites at /<repo>/), that leading slash needs
+  // to be resolved against Vite's configured base instead.
+  const resolvedSrc = src.startsWith('/')
+    ? `${import.meta.env.BASE_URL}${src.slice(1)}`
+    : src;
+  const webpSrc = resolvedSrc.replace(/\.(jpe?g|png)$/i, '.webp');
   return (
     <picture>
       <source srcSet={webpSrc} type="image/webp" />
       <img
-        src={src}
+        src={resolvedSrc}
         alt={alt}
         width={width}
         height={height}
