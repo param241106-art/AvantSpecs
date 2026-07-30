@@ -1,0 +1,209 @@
+AVANTSPECS — WEBSITE BLUEPRINT
+(Structure, components, and data model for rebuilding in Bolt)
+=====================================================
+
+1. SITE TYPE
+------------
+Single-page application (one-page scroll site with anchor-based sections
+and one embedded multi-step form). No login/auth. No real backend
+required — forms post to Formspree. Content is static/hardcoded data
+(product list, regions, certs) rather than pulled from a database.
+
+2. PAGE MAP (all on one route "/", anchor-linked)
+---------------------------------------------------
+/#home          Hero + intro/value-prop content
+/#products      Product Register (grid, filter, search)
+/#about         The House (story, process, quality, team)
+/#markets       Trade & Markets (regions, certifications, docs)
+/#portal-page   Order Portal (multi-step RFQ wizard)
+/#contact       Contact form + FAQ + office image
+(shared) Navbar (sticky) + Footer (always visible)
+
+3. COMPONENT TREE
+---------------------------------------------------
+App
+├── Navbar
+│     - Logo + brand name/tagline
+│     - Nav links (Home, Register, House, Trade, Contact)
+│     - "Request a Quote" CTA button
+│     - Mobile menu toggle (hamburger → overlay)
+│     - Scroll-based "scrolled" style state
+├── ScrollProgressBar (fixed top, width = % scrolled)
+├── HomeSection (#home)
+│     - Hero (tag, H1, lede, 2 CTA buttons)
+│     - StatsCounters (animated count-up on scroll into view)
+│     - ValueProps / feature highlights
+├── ProductsSection (#products)
+│     - PageHeader (title + count of SKUs)
+│     - FilterBar
+│         - CategoryTabs (All / Essential Oils / Oleoresins)
+│         - SearchInput (filters by name + Latin binomial)
+│     - ProductGrid
+│         - ProductCard × N (photo, category tag, latin name, name,
+│           description, extraction method, origin, MOQ badge,
+│           COA badge, "Request Specs" link → scrolls to portal +
+│           pre-selects product)
+│     - CTA band (custom/unlisted specs enquiry)
+├── AboutSection (#about)
+│     - Intro/mission block
+│     - ProcessSteps (Sourcing & Procurement → Testing & QC →
+│       Freight & Delivery)
+│     - QualitySection (GC-MS Profiling, Microbial/Heavy-Metal Panels,
+│       Origin & Traceability + "what every COA carries" list)
+│     - CertificationsTeaser (short version, links to #markets/#certs)
+│     - TeamSection (3 team member cards: photo, name, role)
+│     - CTA band ("Ready to place your first enquiry?")
+├── MarketsSection (#markets)
+│     - PageHeader ("Trade & Markets")
+│     - RegionGrid (5 region cards: photo, name, countries, description)
+│     - CertificationsGrid (#certs) (8 cert badges + descriptions)
+│     - DocumentMatrix (8 shipment document types + descriptions)
+│     - ComplianceNote (callout text)
+│     - CTA band → Order Portal / Contact
+├── OrderPortalSection (#portal-page)
+│     - StepIndicator (5 steps, active/done states)
+│     - Step1_ProductSelect (checkbox "chips" per product)
+│     - Step2_ShippingDetails (volume select, incoterm select, port input)
+│     - Step3_BuyerDetails (company, country, name, email, phone, notes)
+│     - Step4_ReviewSummary (auto-built dt/dd summary of all inputs)
+│     - Step5_Confirmation (generated reference number AVS-{year}-{5 chars})
+│     - FlashMessage (validation error banner, auto-hides ~3.5s)
+│     - Submit handler → POST FormData to Formspree endpoint, then
+│       advance to confirmation regardless of network result
+├── ContactSection (#contact)
+│     - ContactForm (name, company, email, country, message + validation
+│       + POST to Formspree + success flash + reset)
+│     - OfficeImage (photo + caption)
+│     - FAQGrid (5 Q&A cards)
+├── Footer
+│     - BrandBlock (logo, name, tagline, description)
+│     - NavLinksColumn
+│     - CategoriesColumn
+│     - NewsletterForm (email input + subscribe → POST to Formspree)
+│     - FooterBottomBar (copyright + contact line)
+└── BackToTopButton (fixed, appears after ~600px scroll)
+
+4. SHARED STATE / DATA FLOW
+---------------------------------------------------
+- productList: array of product objects (see data model below) — shared
+  between ProductsSection (display/filter) and OrderPortalSection
+  (checkbox chips + "Request Specs" pre-select linkage)
+- activeFilter: string ("all" | "oils" | "oleoresins") — local to
+  ProductsSection
+- searchQuery: string — local to ProductsSection, combined with
+  activeFilter to filter productList
+- portalState: { currentStep, selectedProducts[], volume, incoterm,
+  port, company, country, name, email, phone, notes } — local to
+  OrderPortalSection, reset when a new "Request Specs" click occurs
+- No global auth/user state — every visitor is anonymous
+
+5. DATA MODEL
+---------------------------------------------------
+Product {
+  id, name, latinBinomial, category ("oils" | "oleoresins"),
+  extractionMethod ("Steam Distilled" | "Solvent Extracted"),
+  origin (region/state string), description, moq (string, e.g. "25 kg"),
+  coaAvailable (boolean), photoUrl
+}
+Sample products (5): Eucalyptus Oil, Clove Bud Oil, Lemongrass Oil,
+Citronella Oil, Black Pepper Oleoresin
+
+Region {
+  name, countries[], description, photoUrl
+}
+Regions (5): North America, Europe, Middle East, Asia Pacific, Latin America
+
+Certification {
+  code (e.g. "ISO 9001:2015"), shortLabel, description
+}
+Certifications (8): FSSAI, ISO 9001:2015, ISO 22000:2018, HACCP, GMP,
+USFDA, Kosher, Halaal
+
+ShipmentDocument {
+  code (e.g. "COA"), name, description
+}
+Documents (8): COA, TDS, SDS, COO, Phytosanitary Certificate, Commercial
+Invoice & Packing List, Bill of Lading, Allergen & Non-GMO Declaration
+
+TeamMember {
+  name, role, photoUrl
+}
+Team (3 members, trade desk / leadership)
+
+FAQItem { question, answer } — 5 items
+
+RFQSubmission (sent to Formspree on portal submit) {
+  reference (generated client-side), products[], volume, incoterm, port,
+  company, country, name, email, phone, notes
+}
+
+ContactSubmission (sent to Formspree on contact form submit) {
+  name, company, email, country, message
+}
+
+NewsletterSubmission { email }
+
+6. INTERACTION / BEHAVIOR SPEC
+---------------------------------------------------
+- Nav: sticky; add shadow/background once window.scrollY > ~24px
+- Mobile nav: toggle overlay open/close; lock body scroll while open;
+  close automatically when a link is clicked
+- Scroll reveals: any element marked "reveal" fades/slides in once it
+  enters viewport (IntersectionObserver, ~12% threshold), each with
+  optional stagger delay
+- Count-up stats: animate from 0 to target number once visible
+  (~60% threshold), ~1 second duration
+- Product filter/search: recompute visible set on every tab click or
+  keystroke; animate hidden cards out (opacity/scale) before removing
+  from layout
+- SVG route/process draw-on: animate stroke-dashoffset from full length
+  to 0 once the containing section is ~30% visible
+- Scroll progress bar: width = (scrollTop / (scrollHeight - clientHeight)) * 100%
+- Card hover "glow": radial gradient centered on cursor position via
+  CSS custom properties (--mx, --my), disabled if prefers-reduced-motion
+- Back-to-top button: visible once scrollY > 600px, smooth-scrolls to top
+- "Request Specs" link on a ProductCard: navigates to #portal-page,
+  resets portal to step 1, and (after scroll completes) checks that
+  product's chip in Step 1
+- Portal step validation:
+  Step 1 → at least one product checkbox must be checked
+  Step 2 → volume, incoterm, and port are required
+  Step 3 → company, country, name, email are required; email must
+           contain "@"
+  On failure: show FlashMessage with a specific instruction, highlight
+  missing fields, do not advance step
+- Portal submit: generate reference (AVS-{currentYear}-{5 random
+  uppercase alphanumeric chars}), POST all collected data to the RFQ
+  Formspree endpoint, then show confirmation step with that reference
+  regardless of request success (treat delivery as fire-and-forget)
+- Contact form submit: HTML5 required-field validation, POST to a
+  separate Formspree endpoint, show inline success message, reset form,
+  hide success message after ~5s
+- Newsletter form submit: validate email contains "@", POST to Formspree,
+  update input placeholder to reflect "Subscribed" or error state,
+  restore button label after completion
+
+7. VISUAL / DESIGN SYSTEM (for reference when rebuilding)
+---------------------------------------------------
+Colors: bg #fafaf8, green #1c3d2d / #2a5540 / #3d7a58, gold #c9943e /
+#e0b055, rust #8c4326, text #1a1a18 / #4a4a44, borders #e0dbd2 / #c8c0b4
+Fonts: Montserrat (headings), Inter (body), Space Mono (eyebrow/mono
+labels), Rubik (numeric counters)
+Layout: max content width ~1200px, generous section padding (~80px),
+rounded corners (6/12/20px scale), soft drop shadows
+Motion: fade+slide reveals, count-up numbers, hover glow, smooth-scroll
+navigation — overall feel: premium, editorial, botanical trade catalog
+
+8. BUILD NOTES FOR BOLT
+---------------------------------------------------
+- Recommended stack: React + Vite (Bolt default) with Tailwind for the
+  design tokens above, or plain HTML/CSS/JS if a lighter build is wanted
+- Keep Product/Region/Cert/Document/Team/FAQ arrays as local constants
+  or a single content.json/data file — no CMS needed for v1
+- Recreate the two outbound form integrations (RFQ portal + contact
+  form + newsletter) either against Formspree (simplest, no backend) or
+  a real endpoint/database if lead storage is required
+- Swap all placeholder picsum.photos imagery and the base64 logo for
+  real brand assets before launch
+- This blueprint pairs with the separate "users" file (target audience/
+  personas) — read both before building.

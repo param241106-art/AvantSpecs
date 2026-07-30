@@ -1,0 +1,206 @@
+AVANTSPECS — STEP-BY-STEP BUILD ROADMAP FOR BOLT
+=====================================================
+Use this alongside the "users" and "blueprint" files. Build in this order
+so each phase is testable before moving to the next. Give each step to
+Bolt as its own prompt/message rather than all at once — smaller steps
+give Bolt a better chance of getting each part right.
+
+PHASE 0 — PROJECT SETUP
+---------------------------------------------------
+Step 1: Scaffold the project
+  - Create a new Bolt project (React + Vite + Tailwind recommended)
+  - Set up the color/font tokens from the design system (bg, green,
+    gold, rust, text colors; Montserrat/Inter/Space Mono/Rubik fonts
+    via Google Fonts)
+  - Create a data.js (or content.json) file to hold all static content
+    arrays (products, regions, certifications, documents, team, FAQ)
+    so components stay clean
+
+Step 2: Build the shared layout shell
+  - Navbar component (logo, links, mobile hamburger menu, sticky +
+    scroll shadow behavior)
+  - Footer component (brand block, nav links, categories, newsletter
+    form UI only — no submit logic yet)
+  - Wire both into a root App layout with placeholder empty sections
+    for each anchor (#home, #products, #about, #markets, #portal-page,
+    #contact) so nav links resolve correctly
+  - Test: nav links scroll to the right (empty) section, mobile menu
+    opens/closes, layout looks correct on mobile and desktop
+
+PHASE 1 — CONTENT SECTIONS (static, no interactivity yet)
+---------------------------------------------------
+Step 3: Build the Home section
+  - Hero block (tag, H1, lede, two CTA buttons linking to #portal-page
+    and #contact)
+  - Stats/value-prop block (numbers can be static for now)
+  - Test: section renders correctly, CTA links scroll to the right anchors
+
+Step 4: Build the About / "The House" section
+  - Intro/mission copy
+  - 3-step process block (Sourcing & Procurement → Testing & QC →
+    Freight & Delivery)
+  - Quality/testing block (GC-MS, Microbial/Heavy-Metal panels,
+    traceability, "what every COA carries" list)
+  - Team section using 3 placeholder team members from data.js
+  - Closing CTA band
+  - Test: all copy renders, team cards display correctly on mobile/desktop
+
+Step 5: Build the Trade & Markets section
+  - Region grid (5 regions from data.js: photo, countries, description)
+  - Certifications grid (8 certs from data.js)
+  - Document matrix (8 shipment documents from data.js)
+  - Compliance note callout
+  - Test: grids reflow correctly at different screen widths
+
+Step 6: Build the Contact section (static shell first)
+  - Contact form UI (name, company, email, country, message fields) —
+    no submit logic yet, just markup + styling
+  - Office image + caption
+  - FAQ grid (5 Q&A items from data.js)
+  - Test: form fields render and are keyboard-accessible
+
+PHASE 2 — PRODUCT REGISTER (with interactivity)
+---------------------------------------------------
+Step 7: Build the static Product Register
+  - Page header with SKU count
+  - ProductCard component (photo, category tag, latin name, name,
+    description, extraction method + origin, MOQ badge, COA badge,
+    "Request Specs" link)
+  - Render all 5 products from data.js in a responsive grid
+  - Test: cards display correctly on mobile/tablet/desktop
+
+Step 8: Add filtering and search
+  - Category tabs (All / Essential Oils / Oleoresins) using React state
+  - Search input that filters by product name + Latin binomial
+  - Combine both filters (category AND search) against the product list
+  - Add the fade/scale transition when cards are filtered out
+  - Test: filtering by tab, by search, and by both together all work;
+    "no results" case looks reasonable
+
+PHASE 3 — ORDER / RFQ PORTAL (core interactive feature)
+---------------------------------------------------
+Step 9: Build the portal shell and step indicator
+  - StepIndicator component showing 5 steps with active/done states
+  - Container that shows only the active step's panel
+  - Local state: currentStep, and an object holding all form field values
+  - Test: can manually step forward/back with placeholder buttons
+
+Step 10: Build Step 1 — Product selection
+  - Render one checkbox "chip" per product from data.js
+  - Store selected product names in state
+  - Validation: require at least 1 selected before allowing "Next"
+  - Test: selecting/deselecting chips works, validation blocks empty submit
+
+Step 11: Build Step 2 — Shipping details
+  - Volume range dropdown (Sample <1kg / Small 1-25kg / Medium 25-500kg /
+    Large 500kg-5MT / Bulk 5MT+)
+  - Incoterm dropdown (EXW / FOB / CIF / DAP / DDP)
+  - Destination port text input
+  - Validation: all three required before "Next"
+  - Test: validation blocks progress until all fields filled
+
+Step 12: Build Step 3 — Buyer details
+  - Company Name*, Country*, Contact Name*, Email*, Phone (optional),
+    Additional Notes (optional)
+  - Validation: required fields filled + email contains "@"
+  - Test: validation messages appear correctly per missing/invalid field
+
+Step 13: Build Step 4 — Review & summary
+  - Auto-generate a summary list (all fields from steps 1-3) when this
+    step is entered
+  - "Submit Enquiry" button
+  - Test: summary accurately reflects whatever was entered in prior steps
+
+Step 14: Build Step 5 — Confirmation + submission logic
+  - On submit: generate reference number (AVS-{year}-{5 random
+    uppercase alphanumeric chars})
+  - POST the collected form data (as FormData) to a Formspree endpoint
+    (or your chosen backend) using fetch()
+  - Show a loading/disabled state on the submit button while sending
+  - Regardless of network success/failure, advance to the confirmation
+    step and display the generated reference number
+  - Test: full flow start-to-finish produces a reference number and
+    (if using Formspree) an email arrives
+
+Step 15: Wire up "Request Specs" links
+  - Each ProductCard's "Request Specs" link should: scroll to
+    #portal-page, reset the portal to step 1, and pre-check that
+    product's chip in Step 1 after the scroll completes
+  - Test: clicking "Request Specs" on different products pre-selects
+    the correct chip every time, even if the portal was mid-flow before
+
+PHASE 4 — REMAINING FORMS
+---------------------------------------------------
+Step 16: Wire up the Contact form
+  - Client-side validation (required fields + basic email check)
+  - POST to its own Formspree endpoint (separate from the RFQ portal)
+  - Show inline success message on completion, reset form, hide
+    success message after ~5 seconds
+  - Test: submitting valid/invalid data behaves correctly
+
+Step 17: Wire up the Newsletter signup (footer)
+  - Validate email contains "@"
+  - POST to its own Formspree endpoint
+  - Update button/input state while sending, show success/error text
+  - Test: submitting valid/invalid email behaves correctly
+
+PHASE 5 — POLISH / MOTION
+---------------------------------------------------
+Step 18: Add scroll-reveal animations
+  - Fade + slide-up effect on section elements as they enter viewport
+    (IntersectionObserver), with staggered delays for grouped items
+  - Test: does not lag on scroll, respects prefers-reduced-motion
+
+Step 19: Add count-up stats animation
+  - Animate stat numbers from 0 to target once visible
+  - Test: only triggers once per element, doesn't re-trigger on re-scroll
+
+Step 20: Add scroll progress bar + back-to-top button
+  - Fixed top bar reflecting scroll percentage
+  - Back-to-top button appears after ~600px scrolled, smooth-scrolls up
+  - Test: both behave correctly across page length
+
+Step 21: Add hover "glow" effect on cards (optional nice-to-have)
+  - Radial gradient following cursor position on product/region/cert/
+    FAQ cards, disabled under prefers-reduced-motion
+  - Test: does not affect mobile (touch) layouts negatively
+
+PHASE 6 — CONTENT, ASSETS & QA
+---------------------------------------------------
+Step 22: Replace placeholder content
+  - Swap placeholder product photos, region photos, and logo for real
+    brand assets
+  - Confirm all copy (product descriptions, certifications, team bios,
+    FAQ) matches the real business — update data.js accordingly
+
+Step 23: Cross-device and accessibility check
+  - Test on mobile, tablet, desktop breakpoints
+  - Keyboard navigation through nav, forms, and portal steps
+  - Color contrast check against the chosen palette
+  - Confirm all form validation messages are screen-reader friendly
+
+Step 24: Final QA pass
+  - Walk the full user journey end-to-end: land on Home → browse
+    Products → filter/search → click Request Specs → complete RFQ
+    portal → receive confirmation reference
+  - Submit the Contact form and Newsletter form and confirm delivery
+  - Check all internal anchor links and the mobile menu one more time
+
+Step 25: Deploy
+  - Use Bolt's deploy option (or export and deploy to your preferred host)
+  - Confirm the live production Formspree endpoints (not test/sandbox
+    ones) are wired in before going live
+  - Set up a custom domain if applicable
+
+NOTES ON HOW TO WORK WITH BOLT
+---------------------------------------------------
+- Feed Bolt one phase (or even one step) at a time rather than the whole
+  roadmap at once — this keeps its output reviewable and reduces the
+  chance of it getting confused across unrelated features.
+- After each step, actually preview/test the result before moving on;
+  fixing issues early is much faster than untangling them after several
+  more steps have been layered on top.
+- Reference the "blueprint" file when asking Bolt to build a specific
+  component (it has the data model and behavior spec) and the "users"
+  file when you want to sanity-check that a feature actually serves a
+  real buyer need.

@@ -1,0 +1,237 @@
+AVANTSPECS — UI/UX DESIGN DOCUMENT
+=====================================================
+Companion to the "users", "blueprint", and "roadmap" files. This document
+covers the visual design system, layout rules, interaction/motion
+patterns, and usability principles Bolt should follow when styling and
+polishing the site.
+
+1. DESIGN PRINCIPLES
+---------------------------------------------------
+- Trade-house credibility over flashiness. This is a B2B export business
+  selling to procurement professionals — the design should feel premium,
+  precise, and documentation-forward, not playful or consumer-retail.
+- Earthy + editorial. Botanical subject matter (oils, origin regions)
+  paired with a clean, structured, almost catalog/dossier layout.
+- Clarity for non-native English readers. Buyers are international;
+  avoid idioms, keep labels literal (e.g. "Request Specs", "MOQ: 25 kg").
+- Every section should build trust: certifications, documented process,
+  named team members, and clear paperwork lists are core UX content,
+  not afterthoughts.
+- Low-friction lead generation. The RFQ portal is the site's real goal —
+  its steps should feel short, guided, and low-effort compared to one
+  long form.
+
+2. COLOR SYSTEM
+---------------------------------------------------
+Background        #fafaf8   (warm off-white, main page background)
+Surface/white      #ffffff   (cards, nav, form panels)
+Primary green       #1c3d2d   (headings, primary text accents, brand)
+Green (mid)         #2a5540   (secondary green, hover states)
+Green (light)       #3d7a58   (tertiary accents)
+Green tint (bg)      #e8f2eb   (soft section backgrounds, alternating sections)
+Gold (accent)        #c9943e   (CTAs, eyebrow labels, badges, highlights)
+Gold (light)         #e0b055   (gradient/hover variant of gold)
+Gold tint (bg)        #fdf5e4   (soft warm section backgrounds)
+Rust (accent)         #8c4326   (error/validation states, warm contrast accent)
+Text (primary)        #1a1a18
+Text (secondary)      #4a4a44
+Text (muted)          #8a8a82
+Border                #e0dbd2
+Border (strong)       #c8c0b4
+
+Usage rules:
+- Gold is reserved for CTAs, small-caps "eyebrow" labels, and badges —
+  never used as a large background fill.
+- Rust is used only for validation errors / required-field highlighting,
+  so it reads as "attention needed," not decoration.
+- Alternate section backgrounds between plain background, green tint,
+  and gold tint to create rhythm down a long single-page scroll without
+  needing hard divider lines everywhere.
+
+3. TYPOGRAPHY
+---------------------------------------------------
+Headings font: Montserrat, weight 500
+Body font: Inter, weights 400/500/600/700
+Mono/label font: Space Mono, weights 400/700 (used only for small
+  uppercase "eyebrow" tags and reference numbers/codes)
+Numeric/counter font: Rubik, weight 500 (used for stat counters and
+  numeric badges so digits look crisp and tabular)
+
+Scale:
+H1: clamp(2.2rem, 5vw, 4rem)
+H2: clamp(1.8rem, 3.5vw, 2.8rem)
+H3: 1.5rem
+H4: 1.15rem
+H5: 0.9rem
+Body/lede: 1.05rem, line-height 1.75, color = text secondary
+Eyebrow labels: 0.7rem, letter-spacing 0.18em, uppercase, gold color
+
+Rules:
+- Never use more than 2 heading levels visually stacked without body
+  copy between them.
+- Eyebrow label (small mono uppercase tag) precedes almost every H2 —
+  this is a signature pattern of the site and should be kept consistent
+  ("Regional Desks", "Certifications", "Common Questions", etc.).
+
+4. LAYOUT & SPACING
+---------------------------------------------------
+Max content width: 1200px (wrap), 900px for narrower text-focused
+  sections (wrap-tight)
+Section vertical padding: 80px standard, 48px for "tight" sections
+  (e.g. directly after a page header)
+Grid gutters: comfortable, generous whitespace between cards (treat
+  crowding as a trust problem, not just an aesthetic one)
+Border radius scale: 6px (small controls), 12px (cards/panels),
+  20px (large feature blocks/CTA bands)
+Shadow: soft, low-opacity (0 4px 16px rgba(0,0,0,.1)) — used sparingly,
+  mainly on the sticky nav once scrolled and on card hover
+
+Responsive breakpoints (recommended):
+- Mobile: < 640px — single column, hamburger nav, stacked cards
+- Tablet: 640–1024px — 2-column grids where applicable
+- Desktop: > 1024px — full multi-column grids (3-4 across for product/
+  region/cert grids)
+
+5. NAVIGATION UX
+---------------------------------------------------
+- Sticky nav bar, transparent-to-solid transition: adds a subtle shadow
+  and background once scrolled past ~24px, so it never feels heavy at
+  the very top of the page.
+- Primary nav links use short internal labels ("Register", "House",
+  "Trade") that map to fuller section titles once you land — this is a
+  stylistic choice; make sure a tooltip or the destination page context
+  clarifies these quickly so buyers aren't confused mid-navigation.
+- "Request a Quote" is visually distinct from the other nav links
+  (filled gold button) since it's the single most important action.
+- Mobile: hamburger opens a full-width overlay/panel; links are large
+  and thumb-friendly (min ~44px tap target); menu auto-closes on link tap.
+- Back-to-top button appears only after meaningful scroll (~600px) so
+  it doesn't compete with the hero on first load.
+
+6. KEY UX FLOWS
+---------------------------------------------------
+A) Browse → Filter → Request Specs → Portal
+   1. Buyer lands on Product Register, scans grid
+   2. Uses category tabs or search to narrow results
+   3. Clicks "Request Specs" on a specific product
+   4. Portal opens pre-scrolled, on Step 1, with that product's chip
+      already checked — buyer should immediately recognize their
+      product carried over (a checked chip + subtle highlight is enough
+      confirmation; no extra toast/alert needed)
+   5. Buyer proceeds through remaining steps
+
+B) Direct quote request (no specific product in mind)
+   1. Buyer clicks "Request a Quote" from nav or hero
+   2. Portal opens at Step 1 with nothing pre-selected
+   3. Buyer manually selects one or more products
+
+C) Validation / error recovery
+   - Never block silently. Every validation failure must produce a
+     visible flash message plus a highlighted field (rust border) so
+     the buyer knows exactly what to fix without hunting.
+   - Flash messages auto-dismiss after ~3.5s but should not disappear
+     before the buyer has had a chance to read them — keep messages
+     short (under ~12 words) so this timing feels sufficient.
+
+D) Confirmation moment
+   - The reference number (AVS-{year}-{code}) is the single most
+     important element of the confirmation screen — make it visually
+     prominent (mono font, larger size, maybe in a bordered box) since
+     the buyer may need to quote it in follow-up emails.
+
+E) Contact / newsletter as low-commitment alternatives
+   - These exist for buyers who aren't ready for a full RFQ. Keep them
+     visually lighter-weight than the portal (fewer fields, no
+     multi-step ceremony) so they read as "quick" options.
+
+7. FORMS & INPUT UX
+---------------------------------------------------
+- Label every field; never rely on placeholder text alone as a label
+  (placeholders may be used as supplementary examples, e.g. "you@company.com").
+- Mark required fields with a visible asterisk plus a required-field
+  legend near the form.
+- Dropdowns (volume, incoterm) should show a clear neutral default
+  ("Select volume range…") rather than pre-selecting the first real
+  option, so buyers don't accidentally submit an unintended default.
+- Disable + relabel submit buttons during network requests ("Filing
+  request…", "Sending…", "Subscribing…") so buyers get feedback and
+  don't double-submit.
+- Keep optional fields (phone, notes) visually de-emphasized (lighter
+  label weight or "(optional)" suffix) so the required path is obvious
+  at a glance.
+
+8. CARDS & CONTENT BLOCKS
+---------------------------------------------------
+ProductCard: photo → category tag (top-left overlay) → Latin name
+  (italic, small, muted) → product name (heading) → description →
+  meta row (method · origin) → badge row (MOQ, COA) → specs link.
+  This order matters: Latin binomial before the common name signals
+  scientific rigor to a professional buyer audience.
+
+RegionCard: photo → region name → countries served (comma-separated,
+  distinct style from body copy) → 1-2 sentence description tailored
+  to that region's buyer profile/certifications.
+
+CertificationCard: short code/mark (2-3 letters, badge-style) →
+  full certification name → one-line plain-English description of what
+  it certifies. Keep these scannable — buyers are often checking this
+  list quickly against their own import requirements.
+
+FAQCard: question as a heading, answer in 1-3 sentences max — this is
+  not the place for long-form explanation; link to Contact for anything
+  more complex.
+
+9. MOTION & MICRO-INTERACTIONS
+---------------------------------------------------
+- Scroll-reveal (fade + slight upward slide) on section content as it
+  enters view — communicates polish without being distracting. Keep
+  duration short (~0.6s) and stagger delays small (~0.1s increments) so
+  grouped items (e.g. cert grid) feel cohesive, not sluggish.
+- Count-up numbers for stats: purely decorative reinforcement of scale/
+  credibility — should complete within ~1 second, not linger.
+- Card hover glow: a subtle cursor-following highlight, desktop-only
+  (skip or disable on touch devices where there's no persistent hover),
+  and skipped entirely under prefers-reduced-motion.
+- All motion must respect prefers-reduced-motion — this is a B2B
+  audience that may include accessibility-conscious enterprise IT
+  environments; don't make motion mandatory for comprehension.
+
+10. ACCESSIBILITY REQUIREMENTS
+---------------------------------------------------
+- Color contrast: body text vs. background must meet WCAG AA at minimum
+  (verify text secondary #4a4a44 on #fafaf8, and white text on gold
+  buttons, specifically).
+- All interactive elements (nav links, tabs, chips, buttons) must be
+  reachable and operable via keyboard (Tab/Enter/Space), with visible
+  focus states — don't rely on hover-only affordances.
+- Form errors must be announced in a way screen readers can pick up
+  (e.g. aria-live region for the flash message), not conveyed by color
+  alone (rust border should be paired with the text message).
+- Images need descriptive alt text (product name, region name, etc.),
+  not generic "photo" alt text.
+- Maintain a logical heading hierarchy (one H1 per section context,
+  H2s for sub-sections) so screen-reader users can navigate by heading.
+
+11. TRUST & CREDIBILITY UX PATTERNS
+---------------------------------------------------
+- Certifications, documentation matrix, and named team members should
+  never be more than one scroll away from any point where a buyer might
+  be deciding whether to submit an RFQ — these are the site's main
+  objection-handlers.
+- Use concrete, specific numbers wherever possible (MOQ in kg, lead
+  times in days by region, number of SKUs) rather than vague marketing
+  language — this audience trusts specificity.
+- The "compliance note" pattern (destination market → mapped certificate
+  set) should be repeated near every major CTA, since customs/compliance
+  is the buyer's biggest risk concern.
+
+12. WHAT TO AVOID
+---------------------------------------------------
+- Stock-photo consumer lifestyle imagery (spa/wellness vibes) — this is
+  an industrial/trade context, not a retail wellness brand.
+- Overly long single-page-scroll forms — the multi-step portal exists
+  specifically to avoid this; don't collapse it back into one long form.
+- Auto-playing carousels or content that shifts position without user
+  action (fights against a "documentation-forward" trust feel).
+- Excessive motion/parallax that could feel gimmicky to a procurement
+  audience evaluating a supplier, not browsing entertainment.

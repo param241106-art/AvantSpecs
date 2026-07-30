@@ -1,0 +1,169 @@
+AVANTSPECS — WEBSITE DESCRIPTION & FUNCTIONAL SPEC
+(For rebuilding the site in Bolt.new)
+=====================================================
+
+1. COMPANY OVERVIEW
+--------------------
+Name: AvantSpecs
+Tagline: "Synergistic Herbal Solutions"
+Type: Merchant export house (B2B, not a manufacturer) based in Rohtak, India (PIN 124001)
+Contact: trade@avantspecs.com · +971 50 665 0173
+Business: Sources, tests, and ships essential oils and oleoresins to wholesale
+buyers, formulators, flavor/fragrance houses, and supplement manufacturers
+worldwide. Positioned as a newly launched, boutique but professional trade
+house — every consignment fully documented to spec.
+
+Target audience: overseas wholesale importers / B2B buyers (not consumers).
+
+Overall tone/design: earthy, premium, botanical trade-house aesthetic.
+Colors: deep green (#1c3d2d), gold accent (#c9943e), warm off-white background
+(#fafaf8), rust accent (#8c4326). Fonts: Montserrat (headings), Inter (body),
+Space Mono (small caps/eyebrow labels), Rubik (numbers/counters).
+
+2. SITE STRUCTURE / PAGES (single-page app with anchored sections)
+--------------------------------------------------------------------
+All content lives in one HTML file, navigated via anchor links + JS smooth
+scroll. Sections (with id targets used by the nav):
+
+A) NAV BAR (sticky, adds shadow on scroll)
+   - Logo/crest image + brand name + sub-label
+   - Links: Home / Register(Products) / House(About) / Trade(Markets) / Contact
+   - CTA button: "Request a Quote" → links to Order Portal
+   - Mobile hamburger menu that slides/opens a full nav overlay
+
+B) HOME (#home)
+   - Hero section: eyebrow "Rohtak, India", H1 headline, lede paragraph,
+     two CTA buttons ("Request a Quote", plus a secondary one)
+   - Feature/stats section (with animated count-up numbers on scroll)
+   - Additional intro sections about the company value proposition
+
+C) PRODUCT REGISTER (#products)
+   - Page header: "The Product Register", subcopy noting number of SKUs
+   - Filter bar:
+     • Category filter tabs: All / Essential Oils / Oleoresins
+     • Live search box (searches by product name or Latin binomial)
+   - Product grid of cards, each with:
+     • Product photo, category tag (Essential Oil / Oleoresin)
+     • Latin binomial name, product name, description
+     • Meta info: extraction method (e.g. Steam Distilled / Solvent Extracted), origin region
+     • MOQ badge + "COA Available" badge
+     • "Request Specs" link → jumps to Order Portal and pre-selects that product
+   - Products shown (5 SKUs): Eucalyptus Oil, Clove Bud Oil, Lemongrass Oil,
+     Citronella Oil, Black Pepper Oleoresin
+   - Bottom CTA band inviting custom/unlisted specification requests
+
+D) ABOUT / THE HOUSE (#about)
+   - H1 "The House of AvantSpecs"
+   - Company story / mission section ("Built to bridge origin and formulation")
+   - 3-Step process section ("Three steps, fully documented"):
+     Sourcing & Procurement → Testing & Quality Control → Freight & Delivery
+   - Quality/testing section: GC-MS Constituent Profiling, Microbial &
+     Heavy-Metal Panels, Documented Origin & Traceability; plus a
+     "what every COA carries" breakdown
+   - Certifications teaser section
+   - Leadership / trade desk team section with 3 named people (photo, name, role)
+   - Closing CTA: "Ready to place your first enquiry?"
+
+E) TRADE & MARKETS (#markets)
+   - H1 "Trade & Markets", intro "Shipping from India to the world"
+   - Regional Desks grid — one card per world region with photo, countries
+     served, and a short description of buyer type/certifications relevant
+     to that region (North America, Europe, Middle East, Asia Pacific,
+     Latin America)
+   - Certifications grid (#certs): FSSAI, ISO 9001:2015, ISO 22000:2018,
+     HACCP, GMP, USFDA, Kosher, Halaal — each with short description
+   - Documentation matrix: list of shipment documents issued with every
+     consignment (COA, TDS, SDS, COO, Phytosanitary Cert, Commercial
+     Invoice/Packing List, Bill of Lading, Allergen/Non-GMO Declaration)
+   - Compliance note callout: buyer specifies destination market at RFQ
+     stage and AvantSpecs maps the exact certificate set required
+   - CTA band → Order Portal / Contact
+
+F) ORDER / RFQ PORTAL (#portal-page) — the core interactive feature
+   Multi-step quote request wizard (all client-side, single page, no
+   backend beyond form submission):
+   Step 1 – Product selection: checkbox "chips" for each product/category
+   Step 2 – Shipping details: Volume range (dropdown: Sample <1kg, Small
+            1-25kg, Medium 25-500kg, Large 500kg-5MT, Bulk 5MT+),
+            Incoterm (EXW/FOB/CIF/DAP/DDP), Destination Port (text input)
+   Step 3 – Buyer details: Company Name*, Country*, Contact Name*,
+            Email*, Phone/WhatsApp (optional), Additional Notes
+   Step 4 – Review/Summary: auto-generated summary list (dt/dd) of all
+            entered values, plus Submit button
+   Step 5 – Confirmation: success screen showing a generated reference
+            number in the format "AVS-{year}-{5 random alphanumeric chars}"
+   Behavior:
+   - Step indicator/progress UI (pstep elements: active/done states)
+   - Client-side validation per step (required fields highlighted red,
+     inline "flash" message banner shown on validation failure, auto-hides
+     after ~3.5s)
+   - "Request Specs" links on product cards jump here, reset to step 1,
+     and pre-check the matching product's checkbox after scroll completes
+   - On submit: sends form data via fetch() POST to a Formspree endpoint
+     (form-to-email backend-as-a-service — no custom backend needed),
+     shows a filing/loading state on the button, then reveals confirmation
+     step with reference number regardless of network result (graceful
+     fallback)
+
+G) CONTACT (#contact)
+   - Simple contact form: Name*, Company, Email*, Country, Message* —
+     client-side validated (HTML5 required + custom check), submits via
+     fetch() to a separate Formspree endpoint, shows a success flash
+     message, resets the form after submit
+   - Office location image + caption ("AvantSpecs – Rohtak, India 124001")
+   - FAQ accordion/grid section: MOQ, shipment lead times by region,
+     samples policy, documentation list, how to get a quote
+
+H) FOOTER
+   - Brand block (logo, name, tagline, one-line description)
+   - Navigate links column
+   - Categories links column
+   - Newsletter signup form (email input + Subscribe button) — submits via
+     fetch() to Formspree, disables button while sending, updates input
+     placeholder text to reflect success/error state
+   - Footer bottom bar: copyright + contact line
+
+I) BACK-TO-TOP BUTTON
+   - Floating button, appears after scrolling past ~600px, smooth-scrolls
+     to top on click
+
+3. GLOBAL / CROSS-CUTTING FUNCTIONALITY (JavaScript behaviors)
+-----------------------------------------------------------------
+1. Sticky nav that gains a shadow/background style once page is scrolled
+2. Mobile hamburger menu toggle (opens/closes nav, locks body scroll while open)
+3. Scroll-reveal animations: elements fade/slide into view using
+   IntersectionObserver as they enter the viewport (staggered delays)
+4. Animated count-up numbers for stat/metric callouts, triggered on scroll
+5. SVG "draw-on" line animations (e.g., for route/process diagrams) that
+   animate stroke-dashoffset when scrolled into view
+6. Product filter + live search (category tabs + text search combined,
+   filtering the product grid with a fade/scale transition)
+7. Scroll progress bar at top of page reflecting scroll position
+8. Pointer-reactive "glow"/spotlight hover effect on cards (radial gradient
+   follows mouse position via CSS custom properties)
+9. Three independent form flows, each posting to its own Formspree
+   endpoint via fetch + FormData (no page reload):
+   - Newsletter signup (footer)
+   - Multi-step RFQ/Quote Portal (main lead-gen feature)
+   - Simple contact form
+10. All forms show inline loading/disabled button states and
+    success/error feedback without leaving the page.
+
+4. TECHNICAL NOTES FOR REBUILDING IN BOLT
+---------------------------------------------
+- This is a static, single-page marketing + lead-gen site (HTML/CSS/vanilla
+  JS in the original). No real backend — form submissions go to Formspree
+  (a third-party "form to email" service). In Bolt you can either:
+  (a) recreate the same pattern with Formspree endpoints, or
+  (b) wire the forms to a real backend/database if you want stored leads.
+- Recommend building as a component-based app (React/Vite is Bolt's default)
+  with sections as components: Navbar, Hero, ProductGrid (with filter/search
+  state), AboutSection, MarketsSection, CertificationsSection, RFQPortal
+  (multi-step form with local state for currentStep + form data + validation),
+  ContactForm, Footer, BackToTopButton.
+- Replace the placeholder photography (currently picsum.photos seeded
+  images) with real product/office photography.
+- Replace the base64-embedded logo image with an actual logo asset file.
+- Reference data to migrate: 5 products (name, Latin binomial, category,
+  extraction method, origin, MOQ, description), 5 regional desks, 8
+  certifications, 8 shipment document types, 3 team members, FAQ list.

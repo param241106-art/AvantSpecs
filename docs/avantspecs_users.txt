@@ -1,0 +1,71 @@
+AVANTSPECS — WEBSITE USERS / TARGET AUDIENCE
+=====================================================
+This site is B2B — there are no end-consumer shoppers. Every visitor is
+either a business buyer, a partner, or internal staff. Below are the
+user types the site is designed for.
+
+1. PRIMARY USER: OVERSEAS WHOLESALE BUYER / IMPORTER
+------------------------------------------------------
+Who they are:
+- Procurement managers, buyers, or owners at companies that import
+  essential oils and oleoresins in bulk (25kg to multiple metric tons)
+- Based in North America, Europe, Middle East (UAE/Saudi Arabia), Asia
+  Pacific (Australia/Singapore), or Latin America
+- Represent industries such as: cosmetics/personal care manufacturing,
+  nutraceutical/supplement production, flavor & fragrance houses,
+  pharmaceutical formulators, food & beverage manufacturers
+
+What they come to do:
+- Browse the Product Register to see available SKUs, specs, and origin
+- Check certifications/compliance documentation before committing to a
+  supplier (FSSAI, ISO, HACCP, GMP, USFDA, Kosher, Halaal)
+- Submit an RFQ (Request for Quote) via the multi-step Order Portal,
+  specifying product, volume, incoterm, and destination port
+- Confirm lead times and shipping logistics to their region
+- Get a document checklist (COA, TDS, SDS, COO, Phytosanitary, etc.)
+  for customs clearance in their country
+
+Needs from the site:
+- Fast way to filter/search products (by name or Latin binomial)
+- Clear MOQ and COA availability per product
+- Trust signals: certifications, documented process, real leadership
+- Low-friction quote request (guided steps rather than one long form)
+- Confidence that paperwork/compliance is handled for their market
+
+2. SECONDARY USER: SAMPLE / SMALL-BATCH BUYER
+------------------------------------------------------
+- Smaller brands, formulators, or first-time buyers testing a product
+  before committing to bulk volume
+- Uses the "Sample (<1kg)" or "Small (1–25kg)" volume options in the
+  RFQ portal
+- More likely to read the FAQ section (MOQ, sample policy, lead times)
+  before submitting an enquiry
+
+3. TERTIARY USER: EXISTING / RETURNING TRADE PARTNER
+------------------------------------------------------
+- A buyer who already has a relationship with AvantSpecs and returns to:
+  - Check new-crop availability or market notes (footer newsletter)
+  - Request specs on an additional product via "Request Specs" links
+  - Reach the trade desk directly by phone/WhatsApp or email
+
+4. INTERNAL / OPERATIONAL USER: THE AVANTSPECS TRADE DESK
+------------------------------------------------------
+- Receives RFQ portal submissions and contact form submissions (via
+  Formspree-forwarded emails)
+- Uses the generated reference number (e.g. AVS-2026-XXXXX) to track
+  and respond to each enquiry within a stated 48-hour window
+- Represented on-site by 3 named leadership/trade desk contacts
+
+5. CASUAL / RESEARCH VISITOR
+------------------------------------------------------
+- Journalists, students, or competitors researching the essential oil
+  export trade, regional certifications, or supply chain documentation
+- Typically only reads About/Trade & Markets sections, does not convert
+
+DEVICE & CONTEXT NOTES
+------------------------------------------------------
+- Buyers may browse on desktop (office/procurement context) or mobile
+  (checking on the go, WhatsApp-linked contact) — site must support both
+  via the mobile hamburger nav and responsive product grid
+- Buyers are international, so plain, unambiguous English and explicit
+  units/incoterms/currency-neutral language matter more than idiom
