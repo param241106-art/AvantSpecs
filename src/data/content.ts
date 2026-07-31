@@ -181,13 +181,13 @@ export const team: TeamMember[] = [
     name: 'Paramjeet Singh',
     role: 'Chief Executive Officer',
     photoUrl: '/images/Paramjeet_Singh.jpg',
-    bio: 'A visionary leader guiding AvantSpecs’ direction and growth.',
+    bio: 'Paramjeet started AvantSpecs while still in college, after seeing local farmers and small distillers sell high-quality essential oils for a fraction of their real worth simply because they had no direct route to international buyers. He founded AvantSpecs to close that gap — building the testing, documentation, and trade relationships needed so Indian-origin botanicals could reach global formulators on fair terms.',
   },
   {
     name: 'Aadi Kumar Singh',
     role: 'Chief Operating Officer',
     photoUrl: '/images/Aadi_Kumar_Singh.jpg',
-    bio: 'A visionary operator keeping every shipment precise and on track.',
+    bio: 'Aadi came on board as COO from the same classroom, taking ownership of the day-to-day: sourcing logistics, lab coordination, and keeping every shipment’s paperwork airtight. While Paramjeet focuses on trade relationships and growth, Aadi makes sure the operational side never becomes the reason a buyer’s order slips.',
   },
 ];
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { navigate } from '@/lib/router';
+import { navigate, useRoute } from '@/lib/router';
 import type { Route } from '@/lib/router';
 import { Picture } from '@/components/Picture';
 
@@ -20,6 +20,7 @@ const categoryLinks: { label: string; route: Route }[] = [
 ];
 
 export function Footer() {
+  const route = useRoute();
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
@@ -102,23 +103,25 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <div className="mt-6 space-y-2.5">
-              <a
-                href="mailto:param@avantspecs.com"
-                className="flex items-center gap-2 text-sm text-white/70 hover:text-white"
-              >
-                <Mail size={15} /> param@avantspecs.com
-              </a>
-              <a
-                href="tel:+971506650173"
-                className="flex items-center gap-2 text-sm text-white/70 hover:text-white"
-              >
-                <Phone size={15} /> +971 50 665 0173
-              </a>
-              <p className="flex items-center gap-2 text-sm text-white/70">
-                <MapPin size={15} /> Rohtak, India 124001
-              </p>
-            </div>
+            {route !== 'contact' && (
+              <div className="mt-6 space-y-2.5">
+                <a
+                  href="mailto:param@avantspecs.com"
+                  className="flex items-center gap-2 text-sm text-white/70 hover:text-white"
+                >
+                  <Mail size={15} /> param@avantspecs.com
+                </a>
+                <a
+                  href="tel:+971506650173"
+                  className="flex items-center gap-2 text-sm text-white/70 hover:text-white"
+                >
+                  <Phone size={15} /> +971 50 665 0173
+                </a>
+                <p className="flex items-center gap-2 text-sm text-white/70">
+                  <MapPin size={15} /> Rohtak, India 124001
+                </p>
+              </div>
+            )}
           </div>
 
           <div>

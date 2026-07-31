@@ -1,10 +1,37 @@
-import { Globe, Award, FileText, Info } from 'lucide-react';
+import {
+  Globe,
+  Award,
+  FileText,
+  Info,
+  ShieldCheck,
+  BadgeCheck,
+  ClipboardCheck,
+  ListChecks,
+  Factory,
+  Landmark,
+  Star,
+  Moon,
+} from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Section, SectionHeader, CTABand } from '@/components/Section';
 import { Picture } from '@/components/Picture';
 import { InteractiveMap } from '@/components/sections/InteractiveMap';
 import { useReveal } from '@/lib/hooks';
 import { regions, certifications, shipmentDocuments } from '@/data/content';
 import type { Region, Certification, ShipmentDocument } from '@/data/content';
+
+// Distinct small icon per certification — standing in for a logo without
+// reproducing any certifying body's actual trademarked/regulated mark.
+const certIcons: Record<string, LucideIcon> = {
+  FSSAI: ShieldCheck,
+  'ISO 9001:2015': BadgeCheck,
+  'ISO 22000:2018': ClipboardCheck,
+  HACCP: ListChecks,
+  GMP: Factory,
+  USFDA: Landmark,
+  Kosher: Star,
+  Halaal: Moon,
+};
 
 function RegionCard({ region, index }: { region: Region; index: number }) {
   const { ref, visible } = useReveal();
@@ -38,14 +65,15 @@ function RegionCard({ region, index }: { region: Region; index: number }) {
 
 function CertCard({ cert, index }: { cert: Certification; index: number }) {
   const { ref, visible } = useReveal();
+  const Icon = certIcons[cert.code] ?? Award;
   return (
     <div
       ref={ref}
       className={`card card-glow relative overflow-hidden p-6 reveal ${visible ? 'is-visible' : ''}`}
       style={{ transitionDelay: `${index * 60}ms` }}
     >
-      <div className="flex h-12 w-12 items-center justify-center rounded-md bg-gold-tint font-mono text-xs font-bold text-gold">
-        {cert.shortLabel.slice(0, 4)}
+      <div className="flex h-12 w-12 items-center justify-center rounded-md bg-gold-tint text-gold">
+        <Icon size={22} />
       </div>
       <h3 className="mt-4 text-base">{cert.code}</h3>
       <p className="mt-2 text-xs leading-relaxed text-ink-secondary">{cert.description}</p>

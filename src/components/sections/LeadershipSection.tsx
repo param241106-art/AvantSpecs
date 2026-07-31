@@ -19,27 +19,25 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
       className={`card card-glow relative overflow-hidden reveal ${visible ? 'is-visible' : ''}`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="flex items-center gap-5 p-8">
+      <div className="p-8">
         {member.photoUrl ? (
           <Picture
             src={member.photoUrl}
             alt={member.name}
-            width={64}
-            height={64}
-            className="h-16 w-16 shrink-0 rounded-full object-cover"
+            width={288}
+            height={288}
+            className="h-36 w-36 rounded-full object-cover"
           />
         ) : (
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-green font-heading text-xl font-semibold text-white">
+          <div className="flex h-36 w-36 items-center justify-center rounded-full bg-green font-heading text-4xl font-semibold text-white">
             {initials}
           </div>
         )}
-        <div>
-          <h3 className="text-lg">{member.name}</h3>
-          <p className="mt-1 flex items-center gap-1.5 text-sm text-gold">
-            <MapPin size={13} /> {member.role}
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-ink-secondary">{member.bio}</p>
-        </div>
+        <h3 className="mt-6 text-xl">{member.name}</h3>
+        <p className="mt-1 flex items-center gap-1.5 text-sm text-gold">
+          <MapPin size={13} /> {member.role}
+        </p>
+        <p className="mt-3 text-sm leading-relaxed text-ink-secondary">{member.bio}</p>
       </div>
     </div>
   );
@@ -62,7 +60,7 @@ export function LeadershipSection() {
 
         <div ref={teamReveal.ref} className="mt-12">
           <p className="eyebrow">Leadership</p>
-          <div className="mt-6 grid max-w-2xl gap-6 sm:grid-cols-2">
+          <div className="mt-6 grid max-w-4xl gap-6 sm:grid-cols-2">
             {team.map((member, i) => (
               <TeamCard key={member.name} member={member} index={i} />
             ))}
