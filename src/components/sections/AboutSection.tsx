@@ -7,7 +7,7 @@ const processSteps = [
     number: '01',
     title: 'Sourcing & Procurement',
     description:
-      'We procure directly from origin regions across India — eucalyptus from the Himalayan foothills, clove from Tamil Nadu, lemongrass from Kerala. Every lot is traceable to its district.',
+      'We procure directly from origin regions across India: eucalyptus from the Himalayan foothills, clove from Tamil Nadu, lemongrass from Kerala. Every lot is traceable to its district.',
   },
   {
     number: '02',
@@ -83,7 +83,7 @@ export function AboutSection() {
           <SectionHeader
             eyebrow="The House"
             title="The House of AvantSpecs"
-            description="A newly launched, boutique trade house based in Rohtak, India. We are not a manufacturer — we are a merchant exporter, which means our job is to find the right product, verify it, document it, and deliver it. Every consignment is fully documented to spec."
+            description="A newly launched, boutique trade house based in Rohtak, India. We are not a manufacturer; we are a merchant exporter, which means our job is to find the right product, verify it, document it, and deliver it. Every consignment is fully documented to spec."
           />
         </div>
       </div>
@@ -102,7 +102,7 @@ export function AboutSection() {
           <SectionHeader
             eyebrow="Quality & Testing"
             title="What every COA carries"
-            description="A Certificate of Analysis is not a formality — it is the document your regulator, your lab, and your customer will reference. Every AvantSpecs COA includes:"
+            description="A Certificate of Analysis is not a formality; it is the document your regulator, your lab, and your customer will reference. Every AvantSpecs COA includes:"
           />
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
@@ -117,7 +117,7 @@ export function AboutSection() {
             <p className="mt-3 text-sm leading-relaxed text-white/80">
               We test every batch before it ships. If a lot does not meet the agreed
               specification, it does not leave our warehouse. You receive the actual lab
-              report for your specific batch — not a generic spec sheet.
+              report for your specific batch, not a generic spec sheet.
             </p>
           </div>
         </div>

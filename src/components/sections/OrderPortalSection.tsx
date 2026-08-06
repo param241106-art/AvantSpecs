@@ -196,15 +196,15 @@ export function OrderPortalSection({ preselectedProduct, resetSignal }: Props) {
 
   const summaryRows: { label: string; value: string }[] = [
     { label: 'Products', value: data.selectedProducts.map((id) => products.find((p) => p.id === id)?.name).filter(Boolean).join(', ') },
-    { label: 'Volume Range', value: volumeOptions.find((v) => v.value === data.volume)?.label || '—' },
-    { label: 'Incoterm', value: data.incoterm || '—' },
-    { label: 'Destination Port', value: data.port || '—' },
-    { label: 'Company', value: data.company || '—' },
-    { label: 'Country', value: data.country || '—' },
-    { label: 'Contact Name', value: data.name || '—' },
-    { label: 'Email', value: data.email || '—' },
-    { label: 'Phone / WhatsApp', value: data.phone || '—' },
-    { label: 'Notes', value: data.notes || '—' },
+    { label: 'Volume Range', value: volumeOptions.find((v) => v.value === data.volume)?.label || 'N/A' },
+    { label: 'Incoterm', value: data.incoterm || 'N/A' },
+    { label: 'Destination Port', value: data.port || 'N/A' },
+    { label: 'Company', value: data.company || 'N/A' },
+    { label: 'Country', value: data.country || 'N/A' },
+    { label: 'Contact Name', value: data.name || 'N/A' },
+    { label: 'Email', value: data.email || 'N/A' },
+    { label: 'Phone / WhatsApp', value: data.phone || 'N/A' },
+    { label: 'Notes', value: data.notes || 'N/A' },
   ];
 
   return (

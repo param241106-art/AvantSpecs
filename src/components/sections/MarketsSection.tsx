@@ -99,8 +99,8 @@ export function MarketsSection() {
             <p className="text-sm font-semibold text-ink">Compliance Note</p>
             <p className="mt-1 text-sm text-ink-secondary">
               You specify your destination market at the RFQ stage. AvantSpecs maps the exact
-              certificate set your country requires — from REACH documentation for Europe to
-              Halaal certification for the Middle East — and ships with that set included. No
+              certificate set your country requires, from REACH documentation for Europe to
+              Halaal certification for the Middle East, and ships with that set included. No
               surprise documentation gaps at customs.
             </p>
           </div>

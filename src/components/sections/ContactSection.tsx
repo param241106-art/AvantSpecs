@@ -101,7 +101,7 @@ export function ContactSection() {
           <SectionHeader
             eyebrow="Contact"
             title="Reach the trade desk"
-            description="For questions about products, documentation, or shipping — or if you are not ready for a full RFQ. We respond within 48 hours."
+            description="For questions about products, documentation, or shipping, or if you are not ready for a full RFQ. We respond within 48 hours."
           />
         </div>
       </div>
@@ -220,7 +220,7 @@ export function ContactSection() {
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 className={`input-field resize-none ${errors.message ? 'input-field-error' : ''}`}
-                placeholder="Tell us what you need — product, volume, destination, or any question."
+                placeholder="Tell us what you need: product, volume, destination, or any question."
               />
             </div>
             <button

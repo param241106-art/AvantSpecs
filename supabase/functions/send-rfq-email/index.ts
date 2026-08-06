@@ -26,16 +26,16 @@ function escapeHtml(value: string): string {
 
 function renderEmailHtml(data: RfqPayload): string {
   const rows: [string, string][] = [
-    ['Products', data.products.join(', ') || '—'],
-    ['Volume Range', data.volume || '—'],
-    ['Incoterm', data.incoterm || '—'],
-    ['Destination Port', data.port || '—'],
-    ['Company', data.company || '—'],
-    ['Country', data.country || '—'],
-    ['Contact Name', data.contactName || '—'],
-    ['Email', data.email || '—'],
-    ['Phone / WhatsApp', data.phone || '—'],
-    ['Notes', data.notes || '—'],
+    ['Products', data.products.join(', ') || 'N/A'],
+    ['Volume Range', data.volume || 'N/A'],
+    ['Incoterm', data.incoterm || 'N/A'],
+    ['Destination Port', data.port || 'N/A'],
+    ['Company', data.company || 'N/A'],
+    ['Country', data.country || 'N/A'],
+    ['Contact Name', data.contactName || 'N/A'],
+    ['Email', data.email || 'N/A'],
+    ['Phone / WhatsApp', data.phone || 'N/A'],
+    ['Notes', data.notes || 'N/A'],
   ];
 
   const rowsHtml = rows
@@ -105,7 +105,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         from: Deno.env.get('RESEND_FROM_EMAIL') || 'AvantSpecs <onboarding@resend.dev>',
         to: [data.email],
-        subject: `Your AvantSpecs enquiry — ${data.reference}`,
+        subject: `Your AvantSpecs enquiry: ${data.reference}`,
         html: renderEmailHtml(data),
       }),
     });

@@ -23,7 +23,7 @@ const valueProps = [
     icon: FileCheck,
     title: 'Documented to Spec',
     description:
-      'Every consignment ships with a full document set — COA, TDS, SDS, and origin certificates — so your customs clearance is never held up by missing paperwork.',
+      'Every consignment ships with a full document set: COA, TDS, SDS, and origin certificates, so your customs clearance is never held up by missing paperwork.',
   },
   {
     icon: FlaskConical,
@@ -35,7 +35,7 @@ const valueProps = [
     icon: Ship,
     title: 'Global Trade Desk',
     description:
-      'We map the exact certificate set your destination market requires — from USFDA to Halaal — and handle freight, documentation, and incoterm logistics end to end.',
+      'We map the exact certificate set your destination market requires, from USFDA to Halaal, and handle freight, documentation, and incoterm logistics end to end.',
   },
 ];
 
@@ -85,7 +85,7 @@ export function HomeSection() {
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-secondary">
               AvantSpecs is a merchant export house sourcing, testing, and shipping botanical
               ingredients to wholesale buyers, formulators, and flavour houses worldwide. Every
-              consignment arrives with a complete paper trail — from origin to your dock.
+              consignment arrives with a complete paper trail, from origin to your dock.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <button type="button" onClick={() => navigate('register')} className="btn-gold">
@@ -129,7 +129,7 @@ export function HomeSection() {
           </h2>
           <span className="heading-accent" />
           <p className="mt-4 text-base leading-relaxed text-ink-secondary">
-            We sit between the farm and the formulation lab — procuring directly from
+            We sit between the farm and the formulation lab, procuring directly from
             origin regions, testing every batch, and shipping with documentation that
             clears customs on the first try.
           </p>
