@@ -1,7 +1,6 @@
 import { FlaskConical, ShieldCheck } from 'lucide-react';
 import { Section, SectionHeader, CTABand } from '@/components/Section';
 import { useReveal } from '@/lib/hooks';
-import { navigate } from '@/lib/router';
 
 const processSteps = [
   {
@@ -32,8 +31,6 @@ const qualityPoints = [
   'Extraction method and date of distillation',
   'Shelf life and recommended storage conditions',
 ];
-
-const certificationsTeaser = ['FSSAI', 'ISO 9001:2015', 'ISO 22000:2018', 'HACCP', 'GMP', 'USFDA', 'Kosher', 'Halaal'];
 
 function ProcessCard({
   number,
@@ -122,16 +119,6 @@ export function AboutSection() {
               specification, it does not leave our warehouse. You receive the actual lab
               report for your specific batch — not a generic spec sheet.
             </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {certificationsTeaser.map((cert) => (
-                <span key={cert} className="badge border-white/20 bg-white/5 text-white/80">
-                  {cert}
-                </span>
-              ))}
-            </div>
-            <button type="button" onClick={() => navigate('trade')} className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-gold-light hover:text-gold">
-              See full certifications
-            </button>
           </div>
         </div>
       </div>

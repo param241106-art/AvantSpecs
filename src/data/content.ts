@@ -36,12 +36,6 @@ export type Region = {
   photoUrl: string;
 };
 
-export type Certification = {
-  code: string;
-  shortLabel: string;
-  description: string;
-};
-
 export type ShipmentDocument = {
   code: string;
   name: string;
@@ -221,14 +215,6 @@ export const products: Product[] = [
 
 export const regions: Region[] = [
   {
-    id: 'north-america',
-    name: 'North America',
-    countries: ['United States', 'Canada', 'Mexico'],
-    description:
-      'USFDA-registered facility documentation and full COA/SDS sets for customs clearance. Buyers include supplement manufacturers and personal-care brands.',
-    photoUrl: '/images/North_America.jpg',
-  },
-  {
     id: 'europe',
     name: 'Europe',
     countries: ['Germany', 'France', 'Netherlands', 'United Kingdom', 'Spain'],
@@ -244,33 +230,6 @@ export const regions: Region[] = [
       'Halaal-certified consignments with Arabic-labelled documentation. Buyers include fragrance houses and traditional medicine manufacturers.',
     photoUrl: '/images/Middle_East.jpg',
   },
-  {
-    id: 'asia-pacific',
-    name: 'Asia Pacific',
-    countries: ['Australia', 'Singapore', 'Japan', 'South Korea', 'Malaysia'],
-    description:
-      'Phytosanitary certificates and origin documentation for APAC quarantine requirements. Serves food, beverage, and personal-care manufacturers.',
-    photoUrl: '/images/Asia_Pacific.jpg',
-  },
-  {
-    id: 'latin-america',
-    name: 'Latin America',
-    countries: ['Brazil', 'Argentina', 'Chile', 'Colombia', 'Peru'],
-    description:
-      'Bilingual documentation (English/Spanish) and full traceability dossiers. Buyers include flavour houses and natural-product formulators.',
-    photoUrl: '/images/Latin_America.jpg',
-  },
-];
-
-export const certifications: Certification[] = [
-  { code: 'FSSAI', shortLabel: 'FSSAI', description: 'Food Safety and Standards Authority of India registration for food-grade handling.' },
-  { code: 'ISO 9001:2015', shortLabel: 'ISO 9001', description: 'Quality management system certification covering sourcing and export operations.' },
-  { code: 'ISO 22000:2018', shortLabel: 'ISO 22000', description: 'Food safety management system for handling edible-grade oils and oleoresins.' },
-  { code: 'HACCP', shortLabel: 'HACCP', description: 'Hazard analysis and critical control points certification for safe food handling.' },
-  { code: 'GMP', shortLabel: 'GMP', description: 'Good Manufacturing Practice compliance for production and packaging facilities.' },
-  { code: 'USFDA', shortLabel: 'USFDA', description: 'US Food and Drug Administration facility registration for shipments to the United States.' },
-  { code: 'Kosher', shortLabel: 'Kosher', description: 'Kosher certification confirming compliance with Jewish dietary law requirements.' },
-  { code: 'Halaal', shortLabel: 'Halaal', description: 'Halaal certification confirming compliance with Islamic dietary requirements.' },
 ];
 
 export const shipmentDocuments: ShipmentDocument[] = [

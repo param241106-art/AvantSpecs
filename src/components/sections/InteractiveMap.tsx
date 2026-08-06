@@ -9,7 +9,6 @@ const geoUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json';
 // Names as they appear in our content vs. the names used by the map's
 // country dataset, wherever the two disagree.
 const nameAliases: Record<string, string> = {
-  'United States': 'United States of America',
   UAE: 'United Arab Emirates',
 };
 
