@@ -112,6 +112,12 @@ export function Footer() {
                   <Mail size={15} /> param@avantspecs.com
                 </a>
                 <a
+                  href="mailto:aadi.singh@avantspecs.com"
+                  className="flex items-center gap-2 text-sm text-white/70 hover:text-white"
+                >
+                  <Mail size={15} /> aadi.singh@avantspecs.com
+                </a>
+                <a
                   href="tel:+971506650173"
                   className="flex items-center gap-2 text-sm text-white/70 hover:text-white"
                 >
@@ -167,7 +173,9 @@ export function Footer() {
           <p className="text-xs text-white/50">
             &copy; {new Date().getFullYear()} AvantSpecs. All rights reserved.
           </p>
-          <p className="text-xs text-white/50">Rohtak, India &middot; param@avantspecs.com</p>
+          <p className="text-xs text-white/50">
+            Rohtak, India &middot; param@avantspecs.com &middot; aadi.singh@avantspecs.com
+          </p>
         </div>
       </div>
     </footer>

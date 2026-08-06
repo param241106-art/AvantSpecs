@@ -248,7 +248,7 @@ export function ContactSection() {
               </p>
               <p className="mt-1 text-sm text-ink-secondary">Rohtak, India 124001</p>
               <p className="mt-3 text-sm text-ink-muted">
-                param@avantspecs.com &middot; +971 50 665 0173
+                param@avantspecs.com &middot; aadi.singh@avantspecs.com &middot; +971 50 665 0173
               </p>
             </div>
           </div>

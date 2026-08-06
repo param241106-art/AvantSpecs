@@ -2,13 +2,30 @@ export type Product = {
   id: string;
   name: string;
   latinBinomial: string;
-  category: 'oils' | 'oleoresins';
-  extractionMethod: 'Steam Distilled' | 'Solvent Extracted';
+  category: 'oils' | 'oleoresins' | 'spices' | 'nuts' | 'powders' | 'disposables';
+  extractionMethod:
+    | 'Steam Distilled'
+    | 'Solvent Extracted'
+    | 'Hand-Harvested & Sun Dried'
+    | 'Cleaned & Sieved'
+    | 'Roasted & Graded'
+    | 'Milled & Sieved'
+    | 'Dehydrated & Milled'
+    | 'Heat-Pressed';
   origin: string;
   description: string;
   moq: string;
   coaAvailable: boolean;
   photoUrl: string;
+};
+
+export const categoryLabels: Record<Product['category'], string> = {
+  oils: 'Essential Oil',
+  oleoresins: 'Oleoresin',
+  spices: 'Spice',
+  nuts: 'Nut',
+  powders: 'Powder',
+  disposables: 'Eco Disposable',
 };
 
 export type Region = {
@@ -108,6 +125,97 @@ export const products: Product[] = [
     moq: '10 kg',
     coaAvailable: true,
     photoUrl: '/images/Black_Pepper_Oleoresin.jpg',
+  },
+  {
+    id: 'saffron',
+    name: 'Saffron',
+    latinBinomial: 'Crocus sativus',
+    category: 'spices',
+    extractionMethod: 'Hand-Harvested & Sun Dried',
+    origin: 'Kashmir',
+    description:
+      'Premium all-red saffron threads with high crocin, picrocrocin, and safranal content for strong color, bitterness, and aroma. Hand-picked and sun dried for consistent grade.',
+    moq: '500 g',
+    coaAvailable: true,
+    photoUrl: '/images/Saffron.jpg',
+  },
+  {
+    id: 'cumin-seed',
+    name: 'Cumin Seed',
+    latinBinomial: 'Cuminum cyminum',
+    category: 'spices',
+    extractionMethod: 'Cleaned & Sieved',
+    origin: 'Gujarat & Rajasthan',
+    description:
+      'Bold, earthy cumin seed cleaned and sieved to a consistent grade for whole-seed use or in-house milling. Widely used in spice blends, seasonings, and flavour applications.',
+    moq: '25 kg',
+    coaAvailable: true,
+    photoUrl: '/images/Cumin.jpg',
+  },
+  {
+    id: 'areca-leaf-plates',
+    name: 'Areca Leaf Plates',
+    latinBinomial: 'Areca catechu',
+    category: 'disposables',
+    extractionMethod: 'Heat-Pressed',
+    origin: 'Karnataka & Kerala',
+    description:
+      'Fully compostable tableware heat-pressed from fallen areca palm leaf sheaths, with no chemical treatment or binding agents. Sturdy, microwave-safe, and available in round and square profiles.',
+    moq: '5,000 pieces',
+    coaAvailable: false,
+    photoUrl: '/images/Areca_Plates.jpg',
+  },
+  {
+    id: 'cashew-kernels',
+    name: 'Cashew Kernels',
+    latinBinomial: 'Anacardium occidentale',
+    category: 'nuts',
+    extractionMethod: 'Roasted & Graded',
+    origin: 'Kerala & Goa',
+    description:
+      'Whole cashew kernels roasted and hand-graded to standard export grades (W240/W320). Consistent size, color, and moisture content for retail packing and food manufacturing.',
+    moq: '25 kg',
+    coaAvailable: true,
+    photoUrl: '/images/Cashews.jpg',
+  },
+  {
+    id: 'guar-gum-powder',
+    name: 'Guar Gum Powder',
+    latinBinomial: 'Cyamopsis tetragonoloba',
+    category: 'powders',
+    extractionMethod: 'Milled & Sieved',
+    origin: 'Rajasthan & Gujarat',
+    description:
+      'High-viscosity guar gum powder milled from guar split for food, textile, and industrial thickening applications. Available in multiple mesh sizes and viscosity grades.',
+    moq: '25 kg',
+    coaAvailable: true,
+    photoUrl: '/images/Guar_Gum.jpg',
+  },
+  {
+    id: 'onion-powder',
+    name: 'Onion Powder',
+    latinBinomial: 'Allium cepa',
+    category: 'powders',
+    extractionMethod: 'Dehydrated & Milled',
+    origin: 'Maharashtra & Gujarat',
+    description:
+      'Dehydrated and finely milled onion powder with strong, consistent flavour for seasoning blends, snack coatings, and ready-to-eat food manufacturing.',
+    moq: '25 kg',
+    coaAvailable: true,
+    photoUrl: '/images/Onion_Powder.jpg',
+  },
+  {
+    id: 'potato-powder',
+    name: 'Potato Powder',
+    latinBinomial: 'Solanum tuberosum',
+    category: 'powders',
+    extractionMethod: 'Dehydrated & Milled',
+    origin: 'Uttar Pradesh & Punjab',
+    description:
+      'Fine dehydrated potato powder for snack manufacturing, instant food mixes, and as a binding agent. Clean, neutral flavour with low moisture content for extended shelf life.',
+    moq: '25 kg',
+    coaAvailable: true,
+    photoUrl: '/images/Potato_Powder.jpg',
   },
 ];
 
@@ -225,8 +333,7 @@ export const volumeOptions = [
 export const incotermOptions = ['EXW', 'FOB', 'CIF', 'DAP', 'DDP'];
 
 export const stats = [
-  { value: 5, suffix: '', label: 'Core SKUs in register' },
+  { value: 12, suffix: '', label: 'Core SKUs in register' },
   { value: 48, suffix: 'h', label: 'Quote response window' },
   { value: 8, suffix: '', label: 'Documents per consignment' },
-  { value: 5, suffix: '', label: 'Regional desks worldwide' },
 ];

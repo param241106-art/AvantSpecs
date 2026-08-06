@@ -79,7 +79,7 @@ export function HomeSection() {
           <div ref={heroReveal.ref} className={`reveal ${heroReveal.visible ? 'is-visible' : ''}`}>
             <p className="eyebrow">Rohtak, India</p>
             <h1 className="mt-4 text-5xl leading-[1.05] md:text-7xl">
-              Essential oils and oleoresins, fully documented to spec.
+              Every shipment, fully documented to your specs.
             </h1>
             <span className="heading-accent" />
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-secondary">
@@ -114,7 +114,7 @@ export function HomeSection() {
       </div>
 
       <div ref={statsReveal.ref} className="border-y border-green-mid bg-green">
-        <div className="container-wrap grid grid-cols-2 gap-8 py-12 md:grid-cols-4">
+        <div className="container-wrap grid grid-cols-1 gap-8 py-12 sm:grid-cols-3">
           {stats.map((stat) => (
             <StatCounter key={stat.label} {...stat} />
           ))}

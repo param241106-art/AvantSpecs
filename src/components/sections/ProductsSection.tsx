@@ -4,10 +4,10 @@ import { Section, SectionHeader, CTABand } from '@/components/Section';
 import { Picture } from '@/components/Picture';
 import { useReveal } from '@/lib/hooks';
 import { navigateToProduct } from '@/lib/router';
-import { products } from '@/data/content';
+import { products, categoryLabels } from '@/data/content';
 import type { Product } from '@/data/content';
 
-type Filter = 'all' | 'oils' | 'oleoresins';
+type Filter = 'all' | Product['category'];
 
 type Props = {
   onRequestSpecs: (productId: string) => void;
@@ -34,6 +34,10 @@ export function ProductsSection({ onRequestSpecs }: Props) {
     { value: 'all', label: 'All' },
     { value: 'oils', label: 'Essential Oils' },
     { value: 'oleoresins', label: 'Oleoresins' },
+    { value: 'spices', label: 'Spices' },
+    { value: 'nuts', label: 'Nuts' },
+    { value: 'powders', label: 'Powders' },
+    { value: 'disposables', label: 'Eco Disposables' },
   ];
 
   return (
@@ -162,7 +166,7 @@ function ProductCard({
           />
         )}
         <span className="badge absolute left-3 top-3 border-white/20 bg-white/90 text-green">
-          {product.category === 'oils' ? 'Essential Oil' : 'Oleoresin'}
+          {categoryLabels[product.category]}
         </span>
       </button>
       <div className="p-6">

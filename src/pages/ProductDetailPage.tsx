@@ -2,7 +2,7 @@ import { ChevronLeft } from 'lucide-react';
 import { Section, CTABand } from '@/components/Section';
 import { Picture } from '@/components/Picture';
 import { navigate, navigateToOrderPortalWithProduct } from '@/lib/router';
-import { products } from '@/data/content';
+import { products, categoryLabels } from '@/data/content';
 
 type Props = {
   productId: string | null;
@@ -30,10 +30,11 @@ export function ProductDetailPage({ productId }: Props) {
     );
   }
 
-  const categoryLabel = product.category === 'oils' ? 'Essential Oil' : 'Oleoresin';
+  const categoryLabel = categoryLabels[product.category];
+  const isExtracted = product.category === 'oils' || product.category === 'oleoresins';
 
   const facts: { label: string; value: string }[] = [
-    { label: 'Extraction Method', value: product.extractionMethod },
+    { label: isExtracted ? 'Extraction Method' : 'Processing Method', value: product.extractionMethod },
     { label: 'Origin', value: product.origin },
     { label: 'MOQ', value: product.moq },
     { label: 'COA Available', value: product.coaAvailable ? 'Yes' : 'On request' },
