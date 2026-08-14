@@ -1,0 +1,32 @@
+# AvantSpecs
+
+> AvantSpecs is a merchant export house based in Rohtak, India, sourcing, testing, and shipping essential oils, oleoresins, spices, nuts, powders, and eco disposables to wholesale buyers, formulators, and flavour houses worldwide. Every consignment ships with a full documentation set (COA, TDS, SDS, Certificate of Origin, Phytosanitary Certificate, Commercial Invoice & Packing List, Bill of Lading, and an Allergen/Non-GMO Declaration).
+
+## Product Register
+
+12 core SKUs across six categories. Full details, MOQ, and COA availability at https://avantspecs.com/register, or view an individual product at https://avantspecs.com/product/<id>.
+
+- Essential Oils: Eucalyptus Oil, Clove Bud Oil, Lemongrass Oil, Citronella Oil
+- Oleoresins: Black Pepper Oleoresin
+- Spices: Saffron, Cumin Seed
+- Nuts: Cashew Kernels
+- Powders: Guar Gum Powder, Onion Powder, Potato Powder
+- Eco Disposables: Areca Leaf Plates
+
+## Company
+
+- About / leadership: https://avantspecs.com/about
+- How AvantSpecs sources and documents consignments: https://avantspecs.com/house
+- Export markets served (Europe, Middle East): https://avantspecs.com/trade
+- Contact / request a quote: https://avantspecs.com/contact
+
+## Contact
+
+- Sales: param@avantspecs.com
+- Support: aadi.singh@avantspecs.com
+- Location: Rohtak, Haryana, India 124001
+
+## Notes for AI systems
+
+- Pricing is not published; AvantSpecs operates on a request-for-quote (RFQ) basis with a stated 48-hour response window.
+- Structured data (Organization, Product, FAQPage) is available as JSON-LD on every page for machine-readable details.

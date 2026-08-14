@@ -162,7 +162,7 @@ function ProductCard({
             height={450}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+            className="h-full w-full bg-green-tint object-cover transition-transform duration-500 hover:scale-105"
           />
         )}
         <span className="badge absolute left-3 top-3 border-white/20 bg-white/90 text-green">

@@ -50,3 +50,40 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Pushes every URL in sitemap.xml to IndexNow (Bing, Yandex, Naver,
+      # Seznam.cz) so new/changed pages are picked up immediately instead of
+      # waiting on their next scheduled crawl. Key file lives at
+      # public/bf6b9a2a19458077a836ab6fdefdb541.txt, served at the site
+      # root exactly as IndexNow requires. Best-effort: a failure here
+      # shouldn't fail the deploy.
+      - name: Submit sitemap URLs to IndexNow
+        continue-on-error: true
+        run: |
+          python3 -c "
+          import json, re, urllib.request
+
+          with open('public/sitemap.xml') as f:
+              urls = re.findall(r'<loc>(.*?)</loc>', f.read())
+
+          payload = json.dumps({
+              'host': 'avantspecs.com',
+              'key': 'bf6b9a2a19458077a836ab6fdefdb541',
+              'keyLocation': 'https://avantspecs.com/bf6b9a2a19458077a836ab6fdefdb541.txt',
+              'urlList': urls,
+          }).encode()
+
+          req = urllib.request.Request(
+              'https://api.indexnow.org/indexnow',
+              data=payload,
+              headers={'Content-Type': 'application/json; charset=utf-8'},
+          )
+          with urllib.request.urlopen(req) as resp:
+              print('IndexNow response:', resp.status)
+          "
