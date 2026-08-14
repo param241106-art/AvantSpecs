@@ -89,7 +89,12 @@ const labelToRoute: Record<string, Route> = {
 };
 
 export function getRouteFromPath(): Route {
-  const path = stripBase(window.location.pathname).toLowerCase();
+  let path = stripBase(window.location.pathname).toLowerCase();
+  // Static per-route shells (see scripts/prerender-shells.mjs) are served
+  // from a directory index, so GitHub Pages serves them at a trailing-slash
+  // URL (e.g. /register/) — strip it before matching so both /register and
+  // /register/ resolve the same way.
+  if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1);
   if (/^\/product\/.+/i.test(path)) return 'product';
   return routeMap[path] ?? 'home';
 }
