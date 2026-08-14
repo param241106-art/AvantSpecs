@@ -12,7 +12,15 @@ const dir = path.resolve(import.meta.dirname, '../public/images');
 // only set for images that are always shown at a fixed crop (object-cover);
 // otherwise only width is constrained and aspect ratio is preserved.
 const targets = {
-  'logo.jpg': { width: 96, height: 96 },
+  // 512px: below this, Google won't consider the image for logo-in-search-
+  // results / Knowledge Panel display (112px minimum, but the source here
+  // was already only 96px so this is an upscale, not a real re-source —
+  // replace with a genuine higher-res original if one ever becomes available).
+  // Source is only 96px; withoutEnlargement is overridden below for this
+  // one file so it actually gets upscaled to meet Google's 112px minimum
+  // for logo-in-search-results eligibility. Replace with a genuine
+  // higher-res original if one ever becomes available.
+  'logo.jpg': { width: 512, height: 512, enlarge: true },
   'Rohtak.jpg': { width: 1104, height: 512 },
   'Map_Image_.jpg': { width: 1536 },
   'North_America.jpg': { width: 760 },
@@ -43,7 +51,7 @@ let totalBefore = 0;
 let totalAfterJpg = 0;
 let totalAfterBest = 0;
 
-for (const [file, { width, height }] of Object.entries(targets)) {
+for (const [file, { width, height, enlarge }] of Object.entries(targets)) {
   const filePath = path.join(dir, file);
   const webpPath = filePath.replace(/\.jpe?g$/i, '.webp');
   const before = await readFile(filePath);
@@ -53,7 +61,7 @@ for (const [file, { width, height }] of Object.entries(targets)) {
     width,
     height,
     fit: height ? 'cover' : 'inside',
-    withoutEnlargement: true,
+    withoutEnlargement: !enlarge,
   });
 
   const jpg = await pipeline.clone().jpeg({ quality: JPEG_QUALITY, mozjpeg: true }).toBuffer();
