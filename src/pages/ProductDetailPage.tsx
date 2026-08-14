@@ -1,8 +1,11 @@
+import { useMemo } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { Section, CTABand } from '@/components/Section';
 import { Picture } from '@/components/Picture';
 import { navigate, navigateToOrderPortalWithProduct, routeHref, handleRouteLinkClick } from '@/lib/router';
 import { products, categoryLabels } from '@/data/content';
+import { useStructuredData } from '@/lib/hooks';
+import { productSchema } from '@/lib/structuredData';
 
 type Props = {
   productId: string | null;
@@ -10,6 +13,8 @@ type Props = {
 
 export function ProductDetailPage({ productId }: Props) {
   const product = products.find((p) => p.id === productId);
+
+  useStructuredData(useMemo(() => (product ? productSchema(product) : null), [product]));
 
   if (!product) {
     return (

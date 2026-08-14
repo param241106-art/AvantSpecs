@@ -126,3 +126,25 @@ export function useDocumentHead(title: string, description: string, canonicalPat
     setMeta('og:url', canonicalUrl, 'property');
   }, [title, description, canonicalPath]);
 }
+
+/**
+ * Injects a single per-route JSON-LD <script> into <head>. Same
+ * JS-execution caveat as useDocumentHead applies for real-time visitors,
+ * but the prerender step (scripts/prerender.mjs) runs this via a headless
+ * browser and bakes the result into the static HTML, so crawlers that don't
+ * execute JS still see it in the raw response.
+ */
+export function useStructuredData(schema: object | null) {
+  useEffect(() => {
+    if (!schema) return;
+    let el = document.head.querySelector<HTMLScriptElement>('script[data-ld-json]');
+    if (!el) {
+      el = document.createElement('script');
+      el.type = 'application/ld+json';
+      el.setAttribute('data-ld-json', '');
+      document.head.appendChild(el);
+    }
+    el.textContent = JSON.stringify(schema);
+    return () => el?.remove();
+  }, [schema]);
+}
