@@ -2,6 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // Decodes the redirect from public/404.html (GitHub Pages SPA
+      // fallback — see that file). Must run before the app's router reads
+      // location.pathname, so it's the very first thing in <head>. No-op
+      // when the page loads normally (no ?p= param), including on the
+      // GoDaddy/Apache deployment where .htaccess handles routing instead
+      // and this param is never set.
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var redirect = params.get('p');
+        if (redirect) {
+          var url = new URL(redirect, window.location.origin);
+          window.history.replaceState(null, '', url.pathname + url.search + url.hash);
+        }
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AvantSpecs — Synergistic Herbal Solutions</title>

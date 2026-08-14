@@ -1,12 +1,9 @@
-name: Deploy preview to GitHub Pages
+name: Deploy to GitHub Pages
 
-# This deploys a PREVIEW build to GitHub Pages at a /AvantSpecs/ sub-path —
-# for reviewing changes only. The real production site (avantspecs.com) is
-# hosted on GoDaddy and is NOT deployed by this workflow; it's uploaded
-# manually from a separate `npm run build` (which uses base:'/' from
-# vite.config.ts, correct for a domain-root deployment). This workflow
-# overrides that with --base=/AvantSpecs/ so asset paths resolve correctly
-# under GitHub Pages' project-page sub-path instead.
+# Production deploy for avantspecs.com via GitHub Pages custom domain.
+# A custom domain serves from the domain root, so this uses the default
+# base:'/' from vite.config.ts (no sub-path override needed). Every push to
+# main deploys live.
 
 on:
   push:
@@ -35,7 +32,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npx vite build --base=/AvantSpecs/
+      - run: npm run build
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}

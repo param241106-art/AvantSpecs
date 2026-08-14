@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AvantSpecs</title>
+    <script>
+      // GitHub Pages has no server-side rewrite support (unlike the
+      // Apache .htaccess used for the GoDaddy deployment), so a direct
+      // hit or refresh on a real route like /register 404s here. This
+      // encodes the intended path into a query string and redirects to
+      // the real index.html, which decodes it back via history.replaceState
+      // before the app reads location.pathname (see the matching script in
+      // index.html). Adapted from https://github.com/rafgraph/spa-github-pages.
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.host + '/?p=' +
+        encodeURIComponent(l.pathname + l.search + l.hash)
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
