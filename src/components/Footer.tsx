@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { navigate, useRoute } from '@/lib/router';
+import { navigate, useRoute, routeHref, handleRouteLinkClick } from '@/lib/router';
 import type { Route } from '@/lib/router';
 import { Picture } from '@/components/Picture';
 
-const navLinks: { label: string; route: Route }[] = [
+const navLinks: { label: string; route: Exclude<Route, 'product'> }[] = [
   { label: 'Home', route: 'home' },
   { label: 'Product Register', route: 'register' },
   { label: 'The House', route: 'house' },
@@ -14,7 +14,7 @@ const navLinks: { label: string; route: Route }[] = [
   { label: 'Contact', route: 'contact' },
 ];
 
-const categoryLinks: { label: string; route: Route }[] = [
+const categoryLinks: { label: string; route: Exclude<Route, 'product'> }[] = [
   { label: 'Essential Oils', route: 'register' },
   { label: 'Oleoresins', route: 'register' },
   { label: 'Spices', route: 'register' },
@@ -78,13 +78,13 @@ export function Footer() {
             <ul className="space-y-2.5">
               {navLinks.map((link) => (
                 <li key={link.label}>
-                  <button
-                    type="button"
-                    onClick={() => navigate(link.route)}
+                  <a
+                    href={routeHref(link.route)}
+                    onClick={(e) => handleRouteLinkClick(e, () => navigate(link.route))}
                     className="text-sm text-white/70 transition-colors hover:text-white"
                   >
                     {link.label}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -97,13 +97,13 @@ export function Footer() {
             <ul className="space-y-2.5">
               {categoryLinks.map((link) => (
                 <li key={link.label}>
-                  <button
-                    type="button"
-                    onClick={() => navigate(link.route)}
+                  <a
+                    href={routeHref(link.route)}
+                    onClick={(e) => handleRouteLinkClick(e, () => navigate(link.route))}
                     className="text-sm text-white/70 transition-colors hover:text-white"
                   >
                     {link.label}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>

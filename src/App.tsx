@@ -3,8 +3,44 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { BackToTop } from '@/components/BackToTop';
-import { useRoute, useProductId } from '@/lib/router';
+import { useRoute, useProductId, canonicalPathForRoute, canonicalPathForProduct } from '@/lib/router';
+import { useDocumentHead } from '@/lib/hooks';
 import { HomePage } from '@/pages/HomePage';
+import { products } from '@/data/content';
+import type { Route } from '@/lib/router';
+
+const routeHead: Record<Exclude<Route, 'product'>, { title: string; description: string }> = {
+  home: {
+    title: 'AvantSpecs — Synergistic Herbal Solutions',
+    description:
+      'AvantSpecs — a merchant export house sourcing, testing, and shipping essential oils, oleoresins, spices, nuts, powders, and eco disposables to wholesale buyers worldwide. Every consignment fully documented to spec.',
+  },
+  register: {
+    title: 'Product Register | AvantSpecs',
+    description:
+      'Browse AvantSpecs’ full product register: essential oils, oleoresins, spices, nuts, powders, and eco disposables, each with MOQ and COA availability. Filter by category or search by name or Latin binomial.',
+  },
+  house: {
+    title: 'The House | AvantSpecs',
+    description:
+      'How AvantSpecs sources, tests, and documents every consignment — from origin procurement to lab verification to the certificate set your customs clearance needs.',
+  },
+  about: {
+    title: 'About Us | AvantSpecs',
+    description:
+      'Meet the team behind AvantSpecs: Paramjeet Singh and Aadi Kumar Singh built AvantSpecs to connect Indian-origin botanical producers directly with international formulators and flavour houses.',
+  },
+  trade: {
+    title: 'Trade & Markets | AvantSpecs',
+    description:
+      'The export markets AvantSpecs serves, with region-specific documentation: REACH compliance for Europe, Halaal certification for the Middle East, and more.',
+  },
+  contact: {
+    title: 'Contact | AvantSpecs',
+    description:
+      'Get in touch with the AvantSpecs trade desk to request a quote, ask about a specification, or start a new export relationship.',
+  },
+};
 
 // Home is the default route and stays eager so the first paint has no
 // Suspense round-trip; every other route is fetched on demand so its code
@@ -35,6 +71,24 @@ function RouteFallback() {
 export default function App() {
   const route = useRoute();
   const productId = useProductId();
+
+  const product = route === 'product' ? products.find((p) => p.id === productId) : undefined;
+  const head =
+    route === 'product'
+      ? product
+        ? {
+            title: `${product.name} | AvantSpecs`,
+            description: product.description,
+            canonicalPath: canonicalPathForProduct(product.id),
+          }
+        : {
+            title: 'Product Not Found | AvantSpecs',
+            description: routeHead.register.description,
+            canonicalPath: canonicalPathForRoute('register'),
+          }
+      : { ...routeHead[route], canonicalPath: canonicalPathForRoute(route) };
+
+  useDocumentHead(head.title, head.description, head.canonicalPath);
 
   return (
     <div className="min-h-screen bg-bg">

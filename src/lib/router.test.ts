@@ -1,41 +1,66 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { getRouteFromHash, navigate, routeFromLabel } from '@/lib/router';
+import { getRouteFromPath, navigate, routeFromLabel, routeHref, productHref } from '@/lib/router';
 
-describe('getRouteFromHash', () => {
-  beforeEach(() => {
-    window.location.hash = '';
+// Routing must work whatever `base` is configured to in vite.config.ts (the
+// app root or a sub-path), so tests compute expected paths against the real
+// configured base rather than assuming '/'.
+const base = import.meta.env.BASE_URL;
+
+function resetPath() {
+  window.history.pushState({}, '', base);
+}
+
+describe('getRouteFromPath', () => {
+  beforeEach(resetPath);
+
+  it('defaults to home at the root path', () => {
+    expect(getRouteFromPath()).toBe('home');
   });
 
-  it('defaults to home when hash is empty', () => {
-    expect(getRouteFromHash()).toBe('home');
-  });
-
-  it('defaults to home when hash is unrecognized', () => {
-    window.location.hash = '#/nonexistent';
-    expect(getRouteFromHash()).toBe('home');
+  it('defaults to home for an unrecognized path', () => {
+    window.history.pushState({}, '', `${base}nonexistent`);
+    expect(getRouteFromPath()).toBe('home');
   });
 
   it.each([
-    ['#/home', 'home'],
-    ['#/register', 'register'],
-    ['#/house', 'house'],
-    ['#/trade', 'trade'],
-    ['#/contact', 'contact'],
-  ])('maps %s to %s', (hash, expected) => {
-    window.location.hash = hash;
-    expect(getRouteFromHash()).toBe(expected);
+    ['home', 'home'],
+    ['register', 'register'],
+    ['house', 'house'],
+    ['trade', 'trade'],
+    ['contact', 'contact'],
+  ])('maps %s to %s', (segment, expected) => {
+    window.history.pushState({}, '', `${base}${segment}`);
+    expect(getRouteFromPath()).toBe(expected);
   });
 
   it('is case-insensitive', () => {
-    window.location.hash = '#/CONTACT';
-    expect(getRouteFromHash()).toBe('contact');
+    window.history.pushState({}, '', `${base}CONTACT`);
+    expect(getRouteFromPath()).toBe('contact');
+  });
+
+  it('maps /product/:id to the product route', () => {
+    window.history.pushState({}, '', `${base}product/eucalyptus-oil`);
+    expect(getRouteFromPath()).toBe('product');
   });
 });
 
 describe('navigate', () => {
-  it('sets window.location.hash to the given route', () => {
+  beforeEach(resetPath);
+
+  it('pushes the resolved pathname for the given route', () => {
     navigate('trade');
-    expect(window.location.hash).toBe('#/trade');
+    expect(window.location.pathname).toBe(`${base}trade`);
+  });
+});
+
+describe('routeHref / productHref', () => {
+  it('resolves route paths', () => {
+    expect(routeHref('home')).toBe(base);
+    expect(routeHref('contact')).toBe(`${base}contact`);
+  });
+
+  it('resolves a product path with the id encoded', () => {
+    expect(productHref('clove bud oil')).toBe(`${base}product/clove%20bud%20oil`);
   });
 });
 

@@ -84,3 +84,45 @@ export function useScrolled(threshold = 24) {
 
   return scrolled;
 }
+
+function setMeta(name: string, content: string, attr: 'name' | 'property' = 'name') {
+  let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attr, name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+}
+
+/**
+ * Sets a per-route document title, meta description, and canonical URL.
+ *
+ * Note: this runs client-side after React mounts, so it only reaches
+ * crawlers that execute JS (Google does; GPTBot/ClaudeBot/PerplexityBot
+ * currently do not — see the SEO audit's GEO findings). Google's own
+ * guidance also treats a JS-inserted rel=canonical as less reliable than one
+ * present in the initial HTML response, so this is a real improvement over
+ * every route sharing one title, but not a substitute for server-side
+ * rendering if that's ever prioritized.
+ */
+export function useDocumentHead(title: string, description: string, canonicalPath: string) {
+  useEffect(() => {
+    document.title = title;
+    setMeta('description', description);
+    setMeta('og:title', title, 'property');
+    setMeta('og:description', description, 'property');
+    setMeta('twitter:title', title);
+    setMeta('twitter:description', description);
+
+    const canonicalUrl = `https://avantspecs.com${canonicalPath}`;
+    let link = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      document.head.appendChild(link);
+    }
+    link.setAttribute('href', canonicalUrl);
+    setMeta('og:url', canonicalUrl, 'property');
+  }, [title, description, canonicalPath]);
+}

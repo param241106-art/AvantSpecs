@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { navigate } from '@/lib/router';
+import { navigate, routeHref, handleRouteLinkClick } from '@/lib/router';
 import type { Route } from '@/lib/router';
 
 type SectionProps = {
@@ -52,11 +52,11 @@ type CTABandProps = {
   title: string;
   description?: string;
   primaryLabel: string;
-  primaryRoute?: Route;
+  primaryRoute?: Exclude<Route, 'product'>;
   primaryHref?: string;
   primaryOnClick?: () => void;
   secondaryLabel?: string;
-  secondaryRoute?: Route;
+  secondaryRoute?: Exclude<Route, 'product'>;
   secondaryHref?: string;
 };
 
@@ -87,9 +87,13 @@ export function CTABand({
               {primaryLabel}
             </button>
           ) : primaryRoute ? (
-            <button type="button" onClick={() => navigate(primaryRoute)} className="btn-gold">
+            <a
+              href={routeHref(primaryRoute)}
+              onClick={(e) => handleRouteLinkClick(e, () => navigate(primaryRoute))}
+              className="btn-gold"
+            >
               {primaryLabel}
-            </button>
+            </a>
           ) : (
             <a href={primaryHref} className="btn-gold">
               {primaryLabel}
@@ -97,13 +101,13 @@ export function CTABand({
           )}
           {secondaryLabel && (secondaryRoute || secondaryHref) && (
             secondaryRoute ? (
-              <button
-                type="button"
-                onClick={() => navigate(secondaryRoute)}
+              <a
+                href={routeHref(secondaryRoute)}
+                onClick={(e) => handleRouteLinkClick(e, () => navigate(secondaryRoute))}
                 className="btn border border-white/40 text-white hover:bg-white/10"
               >
                 {secondaryLabel}
-              </button>
+              </a>
             ) : (
               <a
                 href={secondaryHref}

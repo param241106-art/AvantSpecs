@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useScrolled } from '@/lib/hooks';
-import { useRoute, navigate, navigateToOrderPortal } from '@/lib/router';
+import { useRoute, navigate, navigateToOrderPortal, routeHref, handleRouteLinkClick } from '@/lib/router';
 import type { Route } from '@/lib/router';
 import { Picture } from '@/components/Picture';
 
-const navLinks: { label: string; route: Route }[] = [
+const navLinks: { label: string; route: Exclude<Route, 'product'> }[] = [
   { label: 'Home', route: 'home' },
   { label: 'Register', route: 'register' },
   { label: 'House', route: 'house' },
@@ -26,7 +26,7 @@ export function Navbar() {
     };
   }, [mobileOpen]);
 
-  const go = (route: Route) => {
+  const go = (route: Exclude<Route, 'product'>) => {
     navigate(route);
     setMobileOpen(false);
   };
@@ -46,7 +46,11 @@ export function Navbar() {
         }`}
       >
         <nav className="container-wrap flex h-16 items-center justify-between">
-          <button onClick={() => go('home')} className="flex items-center gap-2.5">
+          <a
+            href={routeHref('home')}
+            onClick={(e) => handleRouteLinkClick(e, () => go('home'))}
+            className="flex items-center gap-2.5"
+          >
             <Picture
               src="/images/logo.jpg"
               alt="AvantSpecs logo"
@@ -61,20 +65,20 @@ export function Navbar() {
                 Synergistic Herbal Solutions
               </p>
             </div>
-          </button>
+          </a>
 
           <div className="hidden items-center gap-7 md:flex">
             {navLinks.map((link) => (
-              <button
+              <a
                 key={link.route}
-                type="button"
-                onClick={() => go(link.route)}
+                href={routeHref(link.route)}
+                onClick={(e) => handleRouteLinkClick(e, () => go(link.route))}
                 className={`text-sm font-medium transition-colors hover:text-gold-light ${
                   currentRoute === link.route ? 'text-gold-light' : 'text-white/80'
                 }`}
               >
                 {link.label}
-              </button>
+              </a>
             ))}
             <button type="button" onClick={requestQuote} className="btn-gold">
               Request a Quote
@@ -84,7 +88,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setMobileOpen(true)}
-            className="flex h-10 w-10 items-center justify-center rounded-sm text-white md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-sm text-white md:hidden"
             aria-label="Open menu"
           >
             <Menu size={24} />
@@ -95,7 +99,11 @@ export function Navbar() {
       {mobileOpen && (
         <div className="fixed inset-0 z-50 bg-bg md:hidden">
           <div className="container-wrap flex h-16 items-center justify-between">
-            <button onClick={() => go('home')} className="flex items-center gap-2.5">
+            <a
+              href={routeHref('home')}
+              onClick={(e) => handleRouteLinkClick(e, () => go('home'))}
+              className="flex items-center gap-2.5"
+            >
               <Picture
                 src="/images/logo.jpg"
                 alt="AvantSpecs logo"
@@ -105,7 +113,7 @@ export function Navbar() {
                 className="h-10 w-10 rounded-sm object-cover"
               />
               <p className="font-heading text-base font-semibold text-ink">AvantSpecs</p>
-            </button>
+            </a>
             <button
               type="button"
               onClick={() => setMobileOpen(false)}
@@ -117,16 +125,16 @@ export function Navbar() {
           </div>
           <nav className="container-wrap mt-8 flex flex-col gap-2">
             {navLinks.map((link) => (
-              <button
+              <a
                 key={link.route}
-                type="button"
-                onClick={() => go(link.route)}
+                href={routeHref(link.route)}
+                onClick={(e) => handleRouteLinkClick(e, () => go(link.route))}
                 className={`rounded-sm px-4 py-4 text-left text-lg font-medium hover:bg-green-tint ${
                   currentRoute === link.route ? 'bg-green-tint text-green' : 'text-ink'
                 }`}
               >
                 {link.label}
-              </button>
+              </a>
             ))}
             <button
               type="button"

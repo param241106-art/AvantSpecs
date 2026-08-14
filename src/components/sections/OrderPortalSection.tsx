@@ -14,7 +14,7 @@ import { Section } from '@/components/Section';
 import { useReveal } from '@/lib/hooks';
 import { products, volumeOptions, incotermOptions } from '@/data/content';
 import { supabase } from '@/lib/supabase';
-import { navigate } from '@/lib/router';
+import { navigate, routeHref, handleRouteLinkClick } from '@/lib/router';
 
 type PortalData = {
   selectedProducts: string[];
@@ -493,9 +493,13 @@ export function OrderPortalSection({ preselectedProduct, resetSignal }: Props) {
                     {reference}
                   </p>
                 </div>
-                <button type="button" onClick={() => navigate('contact')} className="btn-outline mt-8">
+                <a
+                  href={routeHref('contact')}
+                  onClick={(e) => handleRouteLinkClick(e, () => navigate('contact'))}
+                  className="btn-outline mt-8"
+                >
                   Contact the Trade Desk
-                </button>
+                </a>
               </div>
             )}
           </div>

@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 import { ArrowRight, FileCheck, FlaskConical, Ship } from 'lucide-react';
 import { useReveal, useCountUp } from '@/lib/hooks';
-import { navigate } from '@/lib/router';
+import { navigate, routeHref, handleRouteLinkClick } from '@/lib/router';
 import { Picture } from '@/components/Picture';
 import { stats } from '@/data/content';
 
@@ -88,12 +88,20 @@ export function HomeSection() {
               consignment arrives with a complete paper trail, from origin to your dock.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <button type="button" onClick={() => navigate('register')} className="btn-gold">
+              <a
+                href={routeHref('register')}
+                onClick={(e) => handleRouteLinkClick(e, () => navigate('register'))}
+                className="btn-gold"
+              >
                 Request a Quote <ArrowRight size={17} />
-              </button>
-              <button type="button" onClick={() => navigate('register')} className="btn-outline">
+              </a>
+              <a
+                href={routeHref('register')}
+                onClick={(e) => handleRouteLinkClick(e, () => navigate('register'))}
+                className="btn-outline"
+              >
                 Browse the Register
-              </button>
+              </a>
             </div>
           </div>
 

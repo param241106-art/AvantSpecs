@@ -91,10 +91,10 @@ describe('Footer newsletter form', () => {
   });
 
   it('hides the contact details block on the Contact page only', () => {
-    window.location.hash = '#/contact';
+    window.history.pushState({}, '', `${import.meta.env.BASE_URL}contact`);
     render(<Footer />);
     expect(screen.queryByRole('link', { name: /param@avantspecs.com/ })).not.toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /\+971 50 665 0173/ })).not.toBeInTheDocument();
-    window.location.hash = '';
+    window.history.pushState({}, '', import.meta.env.BASE_URL);
   });
 });

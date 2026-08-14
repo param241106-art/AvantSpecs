@@ -4,9 +4,11 @@ import userEvent from '@testing-library/user-event';
 import { ProductsSection } from '@/components/sections/ProductsSection';
 import { products } from '@/data/content';
 
+const base = import.meta.env.BASE_URL;
+
 describe('ProductsSection', () => {
   beforeEach(() => {
-    window.location.hash = '';
+    window.history.pushState({}, '', base);
   });
 
   it('renders every product by default', () => {
@@ -63,10 +65,10 @@ describe('ProductsSection', () => {
     const user = userEvent.setup();
     render(<ProductsSection onRequestSpecs={vi.fn()} />);
     const card = screen.getByText('Eucalyptus Oil').closest('div.card');
-    const imageButton = within(card as HTMLElement).getByRole('button', {
+    const imageLink = within(card as HTMLElement).getByRole('link', {
       name: 'View details for Eucalyptus Oil',
     });
-    await user.click(imageButton);
-    expect(window.location.hash).toBe('#/product/eucalyptus-oil');
+    await user.click(imageLink);
+    expect(window.location.pathname).toBe(`${base}product/eucalyptus-oil`);
   });
 });

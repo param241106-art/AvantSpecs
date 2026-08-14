@@ -2,17 +2,80 @@ import { useEffect, useState } from 'react';
 
 export type Route = 'home' | 'register' | 'house' | 'about' | 'trade' | 'contact' | 'product';
 
+// Real pathnames (relative to the app's base) — these must be unique, crawlable
+// URLs so Google can index and rank each page independently. Previously this
+// app used hash routing (#/register etc.), which collapses to a single
+// indexable URL and hides every route from crawlers.
 const routeMap: Record<string, Route> = {
-  '#/home': 'home',
-  '#/register': 'register',
-  '#/house': 'house',
-  '#/about': 'about',
-  '#/trade': 'trade',
-  '#/contact': 'contact',
+  '/': 'home',
+  '/home': 'home',
+  '/register': 'register',
+  '/house': 'house',
+  '/about': 'about',
+  '/trade': 'trade',
+  '/contact': 'contact',
 };
 
-function getProductIdFromHash(): string | null {
-  const match = window.location.hash.match(/^#\/product\/(.+)$/i);
+const pathForRoute: Record<Exclude<Route, 'product'>, string> = {
+  home: '/',
+  register: '/register',
+  house: '/house',
+  about: '/about',
+  trade: '/trade',
+  contact: '/contact',
+};
+
+// A custom event fired on every programmatic navigation. `popstate` alone
+// only fires on back/forward, not on pushState, so components that need to
+// react to in-app navigation (useRoute, useProductId) listen for both.
+const NAVIGATE_EVENT = 'avantspecs:navigate';
+
+function getBase(): string {
+  // import.meta.env.BASE_URL always has a leading and trailing slash
+  // (e.g. "/" or "/AvantSpecs/"), matching Vite's `base` config. Resolving
+  // against it keeps routing correct whether the app is served from the
+  // domain root or a sub-path.
+  return import.meta.env.BASE_URL;
+}
+
+function stripBase(pathname: string): string {
+  const base = getBase();
+  if (base !== '/' && pathname.startsWith(base)) {
+    return '/' + pathname.slice(base.length);
+  }
+  return pathname;
+}
+
+export function resolvePath(path: string): string {
+  const base = getBase();
+  const relative = path.startsWith('/') ? path.slice(1) : path;
+  return relative === '' ? base : `${base}${relative}`;
+}
+
+export function routeHref(route: Exclude<Route, 'product'>): string {
+  return resolvePath(pathForRoute[route]);
+}
+
+export function productHref(productId: string): string {
+  return resolvePath(`product/${encodeURIComponent(productId)}`);
+}
+
+/** The real, base-independent path for a route — always relative to the
+ * production domain root (avantspecs.com), regardless of how the app is
+ * currently being served (e.g. a GitHub Pages sub-path). Use this for
+ * canonical URLs, not `routeHref`, which is base-aware for actual `<a href>`
+ * attributes so links still work when previewed under a sub-path. */
+export function canonicalPathForRoute(route: Exclude<Route, 'product'>): string {
+  return pathForRoute[route];
+}
+
+export function canonicalPathForProduct(productId: string): string {
+  return `/product/${encodeURIComponent(productId)}`;
+}
+
+function getProductIdFromPath(): string | null {
+  const path = stripBase(window.location.pathname);
+  const match = path.match(/^\/product\/(.+?)\/?$/i);
   return match ? decodeURIComponent(match[1]) : null;
 }
 
@@ -25,18 +88,27 @@ const labelToRoute: Record<string, Route> = {
   contact: 'contact',
 };
 
-export function getRouteFromHash(): Route {
-  const hash = window.location.hash.toLowerCase();
-  if (hash.startsWith('#/product/')) return 'product';
-  return routeMap[hash] ?? 'home';
+export function getRouteFromPath(): Route {
+  const path = stripBase(window.location.pathname).toLowerCase();
+  if (/^\/product\/.+/i.test(path)) return 'product';
+  return routeMap[path] ?? 'home';
 }
 
-export function navigate(route: Route) {
-  window.location.hash = `#/${route}`;
+function pushPath(path: string) {
+  const href = resolvePath(path);
+  if (window.location.pathname === href) return;
+  window.history.pushState({}, '', href);
+  window.dispatchEvent(new Event(NAVIGATE_EVENT));
+}
+
+export function navigate(route: Exclude<Route, 'product'>) {
+  pushPath(pathForRoute[route]);
+  window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
 export function navigateToProduct(productId: string) {
-  window.location.hash = `#/product/${encodeURIComponent(productId)}`;
+  pushPath(`product/${encodeURIComponent(productId)}`);
+  window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
 let pendingProductId: string | null = null;
@@ -72,27 +144,32 @@ export function navigateToOrderPortal() {
 }
 
 export function useRoute(): Route {
-  const [route, setRoute] = useState<Route>(getRouteFromHash);
+  const [route, setRoute] = useState<Route>(getRouteFromPath);
 
   useEffect(() => {
-    const onHashChange = () => {
-      setRoute(getRouteFromHash());
-      window.scrollTo({ top: 0, behavior: 'auto' });
+    const onChange = () => setRoute(getRouteFromPath());
+    window.addEventListener('popstate', onChange);
+    window.addEventListener(NAVIGATE_EVENT, onChange);
+    return () => {
+      window.removeEventListener('popstate', onChange);
+      window.removeEventListener(NAVIGATE_EVENT, onChange);
     };
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
   return route;
 }
 
 export function useProductId(): string | null {
-  const [productId, setProductId] = useState<string | null>(getProductIdFromHash);
+  const [productId, setProductId] = useState<string | null>(getProductIdFromPath);
 
   useEffect(() => {
-    const onHashChange = () => setProductId(getProductIdFromHash());
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
+    const onChange = () => setProductId(getProductIdFromPath());
+    window.addEventListener('popstate', onChange);
+    window.addEventListener(NAVIGATE_EVENT, onChange);
+    return () => {
+      window.removeEventListener('popstate', onChange);
+      window.removeEventListener(NAVIGATE_EVENT, onChange);
+    };
   }, []);
 
   return productId;
@@ -100,4 +177,17 @@ export function useProductId(): string | null {
 
 export function routeFromLabel(label: string): Route {
   return labelToRoute[label.toLowerCase()] ?? 'home';
+}
+
+/** Click handler for real <a href> route links: lets modifier-key/middle
+ * clicks (open in new tab, etc.) behave natively, and intercepts a plain
+ * left click to navigate client-side instead of a full page reload. */
+export function handleRouteLinkClick(
+  e: React.MouseEvent<HTMLAnchorElement>,
+  onNavigate: () => void,
+) {
+  if (e.defaultPrevented || e.button !== 0) return;
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  onNavigate();
 }

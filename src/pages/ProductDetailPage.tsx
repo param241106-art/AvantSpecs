@@ -1,7 +1,7 @@
 import { ChevronLeft } from 'lucide-react';
 import { Section, CTABand } from '@/components/Section';
 import { Picture } from '@/components/Picture';
-import { navigate, navigateToOrderPortalWithProduct } from '@/lib/router';
+import { navigate, navigateToOrderPortalWithProduct, routeHref, handleRouteLinkClick } from '@/lib/router';
 import { products, categoryLabels } from '@/data/content';
 
 type Props = {
@@ -22,9 +22,13 @@ export function ProductDetailPage({ productId }: Props) {
             We could not find that product in the register. It may have been renamed or
             removed.
           </p>
-          <button type="button" onClick={() => navigate('register')} className="btn-gold mt-8">
+          <a
+            href={routeHref('register')}
+            onClick={(e) => handleRouteLinkClick(e, () => navigate('register'))}
+            className="btn-gold mt-8"
+          >
             Browse the Register
-          </button>
+          </a>
         </div>
       </Section>
     );
@@ -43,9 +47,13 @@ export function ProductDetailPage({ productId }: Props) {
   return (
     <Section id="product-detail" bg="plain">
       <div className="container-wrap">
-        <button type="button" onClick={() => navigate('register')} className="btn-ghost">
+        <a
+          href={routeHref('register')}
+          onClick={(e) => handleRouteLinkClick(e, () => navigate('register'))}
+          className="btn-ghost"
+        >
           <ChevronLeft size={17} /> Back to Register
-        </button>
+        </a>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-start">
           <div className="overflow-hidden rounded-md border border-line">

@@ -1,0 +1,26 @@
+# SPA fallback for client-side routing (Apache / GoDaddy hosting).
+#
+# The app now uses real pathnames (/register, /product/eucalyptus-oil, etc.)
+# instead of hash routing, so the server must serve index.html for any path
+# that isn't a real file/directory and let the client-side router take over.
+# Without this, a direct visit or crawler request to e.g. /register 404s.
+#
+# If the live server already has its own .htaccess (this is likely, given
+# the site currently returns a strict CSP/HSTS/security-header set that
+# doesn't originate from this repo) merge these rewrite rules into that file
+# instead of overwriting it, so the existing headers aren't lost.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Let real files and directories (assets, images, robots.txt, sitemap.xml,
+  # llms.txt, etc.) pass through untouched.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else falls back to index.html so the SPA can render the
+  # matching route client-side.
+  RewriteRule ^ index.html [L]
+</IfModule>

@@ -3,7 +3,7 @@ import { Search, ArrowRight } from 'lucide-react';
 import { Section, SectionHeader, CTABand } from '@/components/Section';
 import { Picture } from '@/components/Picture';
 import { useReveal } from '@/lib/hooks';
-import { navigateToProduct } from '@/lib/router';
+import { navigateToProduct, productHref, handleRouteLinkClick } from '@/lib/router';
 import { products, categoryLabels } from '@/data/content';
 import type { Product } from '@/data/content';
 
@@ -140,9 +140,9 @@ function ProductCard({
       className={`card card-glow relative overflow-hidden reveal ${visible ? 'is-visible' : ''}`}
       style={{ transitionDelay: `${index * 80}ms` }}
     >
-      <button
-        type="button"
-        onClick={() => navigateToProduct(product.id)}
+      <a
+        href={productHref(product.id)}
+        onClick={(e) => handleRouteLinkClick(e, () => navigateToProduct(product.id))}
         aria-label={`View details for ${product.name}`}
         className="relative block aspect-[4/3] w-full overflow-hidden border-0 bg-transparent p-0 text-left"
       >
@@ -168,7 +168,7 @@ function ProductCard({
         <span className="badge absolute left-3 top-3 border-white/20 bg-white/90 text-green">
           {categoryLabels[product.category]}
         </span>
-      </button>
+      </a>
       <div className="p-6">
         <p className="text-xs italic text-ink-muted">{product.latinBinomial}</p>
         <h3 className="mt-1 text-lg">{product.name}</h3>

@@ -5,7 +5,9 @@ import { fileURLToPath, URL } from 'node:url';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/AvantSpecs/',
+  // avantspecs.com is served from GoDaddy hosting at the domain root, not a
+  // GitHub Pages project sub-path, so asset URLs must resolve from '/'.
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {
