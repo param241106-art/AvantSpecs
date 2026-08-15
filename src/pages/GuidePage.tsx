@@ -39,7 +39,7 @@ export function GuidePage() {
         <div className="container-tight">
           <p className="eyebrow">What to Expect</p>
           <h2 className="mt-3 text-3xl leading-tight md:text-4xl">
-            What documentation should a legitimate exporter provide?
+            The essential oil exporter documentation checklist: COA, TDS, and SDS
           </h2>
           <span className="heading-accent" />
           <p className="mt-4 text-base leading-relaxed text-ink-secondary">
@@ -83,7 +83,7 @@ export function GuidePage() {
         <div className="container-tight">
           <p className="eyebrow">The Checklist</p>
           <h2 className="mt-3 text-3xl leading-tight md:text-4xl">
-            A framework for vetting an export partner
+            How to vet a spice export supplier: a framework for choosing an export partner
           </h2>
           <span className="heading-accent" />
           <p className="mt-4 text-base leading-relaxed text-ink-secondary">

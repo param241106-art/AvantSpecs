@@ -1,6 +1,11 @@
 export type Product = {
   id: string;
   name: string;
+  // SEO-targeted phrase for this product's <title> tag and its detail
+  // page's top heading (see App.tsx and ProductDetailPage.tsx). Kept
+  // separate from `name` so the short name can stay the label used on
+  // cards, the CTA button, and image alt text.
+  seoTitle: string;
   latinBinomial: string;
   category: 'oils' | 'oleoresins' | 'spices' | 'nuts' | 'powders' | 'disposables';
   extractionMethod:
@@ -58,12 +63,13 @@ export const products: Product[] = [
   {
     id: 'eucalyptus-oil',
     name: 'Eucalyptus Oil',
+    seoTitle: 'Eucalyptus Oil Exporter India',
     latinBinomial: 'Eucalyptus globulus',
     category: 'oils',
     extractionMethod: 'Steam Distilled',
     origin: 'Himachal Pradesh & Uttarakhand',
     description:
-      'A high-cineole eucalyptus oil suited for pharmaceutical formulations, chest rubs, and antiseptic applications. Consistent 1,8-cineole content batch over batch.',
+      'A high-cineole Eucalyptus globulus oil suited for pharmaceutical-grade formulations, chest rubs, and antiseptic applications, with consistent 1,8-cineole content batch over batch. AvantSpecs supplies it in bulk to wholesale buyers as a steam-distilled eucalyptus oil exporter based in India.',
     moq: '25 kg',
     coaAvailable: true,
     photoUrl: 'https://images.pexels.com/photos/6720282/pexels-photo-6720282.jpeg?auto=compress&cs=tinysrgb&w=800',
@@ -71,12 +77,13 @@ export const products: Product[] = [
   {
     id: 'clove-bud-oil',
     name: 'Clove Bud Oil',
+    seoTitle: 'Clove Bud Oil Exporter India',
     latinBinomial: 'Syzygium aromaticum',
     category: 'oils',
     extractionMethod: 'Steam Distilled',
     origin: 'Tamil Nadu & Karnataka',
     description:
-      'Rich in eugenol, this clove bud oil is ideal for dental care products, fragrances, and flavour formulations. Sourced from hand-picked buds for superior aroma profile.',
+      'Rich in eugenol, this Syzygium aromaticum clove bud oil is ideal for dental care manufacturing, fragrances, and flavour formulations, sourced from hand-picked buds for a superior aroma profile. As a clove bud oil exporter based in India, AvantSpecs is a bulk clove oil supplier serving wholesale eugenol buyers.',
     moq: '25 kg',
     coaAvailable: true,
     photoUrl: '/images/Clove_Buds.jpg',
@@ -84,12 +91,13 @@ export const products: Product[] = [
   {
     id: 'lemongrass-oil',
     name: 'Lemongrass Oil',
+    seoTitle: 'Lemongrass Oil Exporter India',
     latinBinomial: 'Cymbopogon flexuosus',
     category: 'oils',
     extractionMethod: 'Steam Distilled',
     origin: 'Kerala & Assam',
     description:
-      'A citrusy, grassy-sweet oil with high citral content (75-85%), widely used in soaps, detergents, insect repellents, and flavour applications. Bright, clean aroma.',
+      'A citrusy, grassy-sweet Cymbopogon flexuosus oil with high citral content (75-85%), widely used in soap manufacturing, detergents, insect repellents, and flavour applications, with a bright, clean aroma. AvantSpecs exports it wholesale from India as a bulk lemongrass oil supplier.',
     moq: '25 kg',
     coaAvailable: true,
     photoUrl: '/images/Lemon_Grass.jpg',
@@ -97,12 +105,13 @@ export const products: Product[] = [
   {
     id: 'citronella-oil',
     name: 'Citronella Oil',
+    seoTitle: 'Citronella Oil Exporter India',
     latinBinomial: 'Cymbopogon winterianus',
     category: 'oils',
     extractionMethod: 'Steam Distilled',
     origin: 'Assam & West Bengal',
     description:
-      'A classic mosquito-repellent oil with strong geraniol and citronellal content. Used in candles, topical repellents, and industrial insect-control formulations.',
+      'A classic Cymbopogon winterianus mosquito-repellent oil with strong geraniol and citronellal content, used in candles, topical repellents, and industrial insect-control formulations. AvantSpecs is a bulk citronella oil supplier, exporting wholesale citronella oil from India to candle and repellent manufacturers worldwide.',
     moq: '25 kg',
     coaAvailable: true,
     photoUrl: '/images/Citronella_Oil.jpg',
@@ -110,12 +119,13 @@ export const products: Product[] = [
   {
     id: 'black-pepper-oleoresin',
     name: 'Black Pepper Oleoresin',
+    seoTitle: 'Black Pepper Oleoresin Exporter India',
     latinBinomial: 'Piper nigrum',
     category: 'oleoresins',
     extractionMethod: 'Solvent Extracted',
     origin: 'Kerala & Karnataka',
     description:
-      'A concentrated, full-spectrum oleoresin capturing both pungency (piperine 40%) and aroma. Used in food seasoning, sauces, and nutraceutical formulations.',
+      'A concentrated, full-spectrum Piper nigrum oleoresin capturing both pungency (piperine 40%) and aroma, used in food seasoning, sauces, and nutraceutical formulations. A bulk black pepper oleoresin supplier, AvantSpecs exports wholesale piperine oleoresin from India to food and nutraceutical manufacturers.',
     moq: '10 kg',
     coaAvailable: true,
     photoUrl: '/images/Black_Pepper_Oleoresin.jpg',
@@ -123,12 +133,13 @@ export const products: Product[] = [
   {
     id: 'saffron',
     name: 'Saffron',
+    seoTitle: 'Saffron Exporter India',
     latinBinomial: 'Crocus sativus',
     category: 'spices',
     extractionMethod: 'Hand-Harvested & Sun Dried',
     origin: 'Kashmir',
     description:
-      'Premium all-red saffron threads with high crocin, picrocrocin, and safranal content for strong color, bitterness, and aroma. Hand-picked and sun dried for consistent grade.',
+      'Premium all-red Crocus sativus saffron threads with high crocin, picrocrocin, and safranal content for strong color, bitterness, and aroma, hand-picked and sun dried for a consistent grade. As a saffron exporter in India, AvantSpecs supplies bulk saffron and wholesale Kashmir saffron to formulators worldwide.',
     moq: '500 g',
     coaAvailable: true,
     photoUrl: '/images/Saffron.jpg',
@@ -136,12 +147,13 @@ export const products: Product[] = [
   {
     id: 'cumin-seed',
     name: 'Cumin Seed',
+    seoTitle: 'Cumin Seed Exporter India',
     latinBinomial: 'Cuminum cyminum',
     category: 'spices',
     extractionMethod: 'Cleaned & Sieved',
     origin: 'Gujarat & Rajasthan',
     description:
-      'Bold, earthy cumin seed cleaned and sieved to a consistent grade for whole-seed use or in-house milling. Widely used in spice blends, seasonings, and flavour applications.',
+      'Bold, earthy Cuminum cyminum cumin seed, cleaned and sieved to a consistent grade for whole-seed use or in-house milling, widely used in spice blends, seasonings, and flavour applications. AvantSpecs exports wholesale cumin seed from India as a bulk cumin seed supplier to spice blenders worldwide.',
     moq: '25 kg',
     coaAvailable: true,
     photoUrl: '/images/Cumin.jpg',
@@ -149,12 +161,13 @@ export const products: Product[] = [
   {
     id: 'areca-leaf-plates',
     name: 'Areca Leaf Plates',
+    seoTitle: 'Areca Leaf Plates Wholesale Supplier',
     latinBinomial: 'Areca catechu',
     category: 'disposables',
     extractionMethod: 'Heat-Pressed',
     origin: 'Karnataka & Kerala',
     description:
-      'Fully compostable tableware heat-pressed from fallen areca palm leaf sheaths, with no chemical treatment or binding agents. Sturdy, microwave-safe, and available in round and square profiles.',
+      'Fully compostable Areca catechu tableware heat-pressed from fallen areca palm leaf sheaths, with no chemical treatment or binding agents, sturdy, microwave-safe, and available in round and square profiles. AvantSpecs is an areca leaf plates wholesale supplier and bulk compostable tableware exporter, manufacturing biodegradable tableware for export from India.',
     moq: '5,000 pieces',
     coaAvailable: false,
     photoUrl: '/images/Areca_Plates.jpg',
@@ -162,12 +175,13 @@ export const products: Product[] = [
   {
     id: 'cashew-kernels',
     name: 'Cashew Kernels',
+    seoTitle: 'Cashew Kernels Exporter India',
     latinBinomial: 'Anacardium occidentale',
     category: 'nuts',
     extractionMethod: 'Roasted & Graded',
     origin: 'Kerala & Goa',
     description:
-      'Whole cashew kernels roasted and hand-graded to standard export grades (W240/W320). Consistent size, color, and moisture content for retail packing and food manufacturing.',
+      'Whole Anacardium occidentale cashew kernels, roasted and hand-graded to standard export grades (W240/W320), with consistent size, color, and moisture content for retail packing and food manufacturing. A bulk cashew kernels exporter in India, AvantSpecs supplies wholesale roasted cashew kernels to buyers worldwide.',
     moq: '25 kg',
     coaAvailable: true,
     photoUrl: '/images/Cashews.jpg',
@@ -175,12 +189,13 @@ export const products: Product[] = [
   {
     id: 'guar-gum-powder',
     name: 'Guar Gum Powder',
+    seoTitle: 'Guar Gum Powder Exporter India',
     latinBinomial: 'Cyamopsis tetragonoloba',
     category: 'powders',
     extractionMethod: 'Milled & Sieved',
     origin: 'Rajasthan & Gujarat',
     description:
-      'High-viscosity guar gum powder milled from guar split for food, textile, and industrial thickening applications. Available in multiple mesh sizes and viscosity grades.',
+      'High-viscosity Cyamopsis tetragonoloba guar gum powder milled from guar split for food, textile, and industrial thickening applications, available in multiple mesh sizes and viscosity grades. AvantSpecs is a bulk guar gum powder supplier and exporter in India, supplying wholesale guar gum as a food thickener.',
     moq: '25 kg',
     coaAvailable: true,
     photoUrl: '/images/Guar_Gum.jpg',
@@ -188,12 +203,13 @@ export const products: Product[] = [
   {
     id: 'onion-powder',
     name: 'Onion Powder',
+    seoTitle: 'Onion Powder Exporter India',
     latinBinomial: 'Allium cepa',
     category: 'powders',
     extractionMethod: 'Dehydrated & Milled',
     origin: 'Maharashtra & Gujarat',
     description:
-      'Dehydrated and finely milled onion powder with strong, consistent flavour for seasoning blends, snack coatings, and ready-to-eat food manufacturing.',
+      'Dehydrated and finely milled Allium cepa onion powder with strong, consistent flavour for seasoning blends, snack coatings, and ready-to-eat food manufacturing. As a bulk dehydrated onion powder supplier, AvantSpecs exports wholesale onion powder seasoning from India.',
     moq: '25 kg',
     coaAvailable: true,
     photoUrl: '/images/Onion_Powder.jpg',
@@ -201,12 +217,13 @@ export const products: Product[] = [
   {
     id: 'potato-powder',
     name: 'Potato Powder',
+    seoTitle: 'Potato Powder Exporter India',
     latinBinomial: 'Solanum tuberosum',
     category: 'powders',
     extractionMethod: 'Dehydrated & Milled',
     origin: 'Uttar Pradesh & Punjab',
     description:
-      'Fine dehydrated potato powder for snack manufacturing, instant food mixes, and as a binding agent. Clean, neutral flavour with low moisture content for extended shelf life.',
+      'Fine dehydrated Solanum tuberosum potato powder for snack manufacturing, instant food mixes, and as a binding agent, with a clean, neutral flavour and low moisture content for extended shelf life. AvantSpecs exports wholesale potato powder from India as a bulk dehydrated potato powder supplier.',
     moq: '25 kg',
     coaAvailable: true,
     photoUrl: '/images/Potato_Powder.jpg',

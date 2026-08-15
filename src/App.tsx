@@ -11,9 +11,9 @@ import type { Route } from '@/lib/router';
 
 const routeHead: Record<Exclude<Route, 'product'>, { title: string; description: string }> = {
   home: {
-    title: 'AvantSpecs — Synergistic Herbal Solutions',
+    title: 'Botanical Export House India | AvantSpecs',
     description:
-      'AvantSpecs — a merchant export house sourcing, testing, and shipping essential oils, oleoresins, spices, nuts, powders, and eco disposables to wholesale buyers worldwide. Every consignment fully documented to spec.',
+      'AvantSpecs is a botanical export house in India, a merchant export house sourcing, GC-MS testing, and shipping essential oils, oleoresins, spices, nuts, powders, and eco disposables to wholesale buyers worldwide. As a documented, COA-backed essential oil and spice exporter, every consignment ships fully documented to spec.',
   },
   register: {
     title: 'Product Register | AvantSpecs',
@@ -43,7 +43,7 @@ const routeHead: Record<Exclude<Route, 'product'>, { title: string; description:
   guide: {
     title: 'How to Choose an Essential Oil Export Partner | AvantSpecs',
     description:
-      'A buyer’s guide to vetting a botanical export partner in India: what documentation to expect, how testing should work, and the certificate set your destination market requires.',
+      'A buyer’s essential oil exporter documentation checklist covering COA, TDS, and SDS, plus a step-by-step framework for how to vet a spice export supplier in India: what documentation to expect, how testing should work, and the certificate set your destination market requires.',
   },
 };
 
@@ -83,7 +83,7 @@ export default function App() {
     route === 'product'
       ? product
         ? {
-            title: `${product.name} | AvantSpecs`,
+            title: `${product.seoTitle} | AvantSpecs`,
             description: product.description,
             canonicalPath: canonicalPathForProduct(product.id),
           }

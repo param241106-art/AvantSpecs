@@ -79,13 +79,14 @@ export function HomeSection() {
           <div ref={heroReveal.ref} className={`reveal ${heroReveal.visible ? 'is-visible' : ''}`}>
             <p className="eyebrow">Rohtak, India</p>
             <h1 className="mt-4 text-5xl leading-[1.05] md:text-7xl">
-              Every shipment, fully documented to your specs.
+              A botanical export house in India, fully documented to spec.
             </h1>
             <span className="heading-accent" />
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-secondary">
-              AvantSpecs is a merchant export house sourcing, testing, and shipping botanical
-              ingredients to wholesale buyers, formulators, and flavour houses worldwide. Every
-              consignment arrives with a complete paper trail, from origin to your dock.
+              AvantSpecs is a merchant export house and wholesale botanical ingredients
+              supplier, sourcing, testing, and shipping botanical ingredients to formulators
+              and flavour houses worldwide. Every consignment arrives with a complete paper
+              trail, from origin to your dock.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
@@ -133,13 +134,13 @@ export function HomeSection() {
         <div className={`reveal ${valuesReveal.visible ? 'is-visible' : ''} mx-auto max-w-2xl`}>
           <p className="eyebrow">Why AvantSpecs</p>
           <h2 className="mt-3 text-4xl leading-tight md:text-5xl">
-            Built to bridge origin and formulation
+            A merchant export house built to bridge origin and formulation
           </h2>
           <span className="heading-accent" />
           <p className="mt-4 text-base leading-relaxed text-ink-secondary">
-            We sit between the farm and the formulation lab, procuring directly from
-            origin regions, testing every batch, and shipping with documentation that
-            clears customs on the first try.
+            We sit between the farm and the formulation lab: procuring directly from
+            origin regions, GC-MS testing every batch, and shipping as a documented
+            essential oil supplier with paperwork that clears customs on the first try.
           </p>
         </div>
 

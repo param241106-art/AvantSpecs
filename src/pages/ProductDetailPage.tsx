@@ -73,7 +73,7 @@ export function ProductDetailPage({ productId }: Props) {
 
           <div>
             <p className="eyebrow">{categoryLabel}</p>
-            <h2 className="mt-3 text-4xl leading-tight md:text-5xl">{product.name}</h2>
+            <h2 className="mt-3 text-4xl leading-tight md:text-5xl">{product.seoTitle}</h2>
             <span className="heading-accent" />
             <p className="mt-3 text-base italic text-ink-muted">{product.latinBinomial}</p>
             <p className="mt-4 text-base leading-relaxed text-ink-secondary">
