@@ -21,7 +21,7 @@ export function ProductDetailPage({ productId }: Props) {
       <Section id="product-detail" bg="plain">
         <div className="container-tight text-center">
           <p className="eyebrow mx-auto justify-center">Product Register</p>
-          <h2 className="mt-3 text-4xl leading-tight md:text-5xl">Product not found</h2>
+          <h1 className="mt-3 text-4xl leading-tight md:text-5xl">Product not found</h1>
           <span className="heading-accent mx-auto" />
           <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-ink-secondary">
             We could not find that product in the register. It may have been renamed or
@@ -73,7 +73,7 @@ export function ProductDetailPage({ productId }: Props) {
 
           <div>
             <p className="eyebrow">{categoryLabel}</p>
-            <h2 className="mt-3 text-4xl leading-tight md:text-5xl">{product.seoTitle}</h2>
+            <h1 className="mt-3 text-4xl leading-tight md:text-5xl">{product.name}</h1>
             <span className="heading-accent" />
             <p className="mt-3 text-base italic text-ink-muted">{product.latinBinomial}</p>
             <p className="mt-4 text-base leading-relaxed text-ink-secondary">

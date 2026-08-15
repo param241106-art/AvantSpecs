@@ -82,9 +82,11 @@ export function organizationSchema(team: TeamMember[]) {
  * record that drives the register and the product detail page — never
  * hand-authored per SKU. Pricing is quote-based and not published, so
  * `offers.priceSpecification` describes that instead of carrying a
- * fabricated price. `name` uses `seoTitle` (not the short `name`) so it
- * matches the page's own <title> and on-page heading exactly — see
- * ProductDetailPage.tsx and App.tsx.
+ * fabricated price. `name` is the plain canonical product name (matches
+ * `alternateName`'s role as the botanical name) — the keyword-targeted
+ * phrase lives in the page's <title>/meta description and on-page heading
+ * (see App.tsx, ProductDetailPage.tsx) but is intentionally not duplicated
+ * into schema `name`.
  */
 export function productSchema(product: Product) {
   const additionalProperty = [
@@ -102,7 +104,7 @@ export function productSchema(product: Product) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product.seoTitle,
+    name: product.name,
     alternateName: product.latinBinomial,
     url: `${SITE_URL}/product/${product.id}`,
     image: product.photoUrl.startsWith('/') ? `${SITE_URL}${product.photoUrl}` : product.photoUrl,
