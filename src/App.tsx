@@ -40,6 +40,11 @@ const routeHead: Record<Exclude<Route, 'product'>, { title: string; description:
     description:
       'Get in touch with the AvantSpecs trade desk to request a quote, ask about a specification, or start a new export relationship.',
   },
+  guide: {
+    title: 'How to Choose an Essential Oil Export Partner | AvantSpecs',
+    description:
+      'A buyer’s guide to vetting a botanical export partner in India: what documentation to expect, how testing should work, and the certificate set your destination market requires.',
+  },
 };
 
 // Home is the default route and stays eager so the first paint has no
@@ -59,6 +64,7 @@ const ContactPage = lazy(() =>
 const ProductDetailPage = lazy(() =>
   import('@/pages/ProductDetailPage').then((m) => ({ default: m.ProductDetailPage })),
 );
+const GuidePage = lazy(() => import('@/pages/GuidePage').then((m) => ({ default: m.GuidePage })));
 
 function RouteFallback() {
   return (
@@ -104,6 +110,7 @@ export default function App() {
             {route === 'trade' && <TradePage />}
             {route === 'contact' && <ContactPage />}
             {route === 'product' && <ProductDetailPage productId={productId} />}
+            {route === 'guide' && <GuidePage />}
           </Suspense>
         )}
       </main>

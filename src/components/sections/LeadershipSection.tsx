@@ -2,6 +2,7 @@ import { MapPin } from 'lucide-react';
 import { Section, SectionHeader, CTABand } from '@/components/Section';
 import { Picture } from '@/components/Picture';
 import { useReveal } from '@/lib/hooks';
+import { navigate, routeHref, handleRouteLinkClick } from '@/lib/router';
 import { team } from '@/data/content';
 import type { TeamMember } from '@/data/content';
 
@@ -66,6 +67,18 @@ export function LeadershipSection() {
             ))}
           </div>
         </div>
+
+        <p className="mt-8 text-sm text-ink-secondary">
+          Evaluating us against other suppliers?{' '}
+          <a
+            href={routeHref('guide')}
+            onClick={(e) => handleRouteLinkClick(e, () => navigate('guide'))}
+            className="font-semibold text-green underline underline-offset-2 hover:text-green-mid"
+          >
+            Read our guide to vetting a botanical export partner
+          </a>
+          .
+        </p>
       </div>
 
       <div className="mt-20">

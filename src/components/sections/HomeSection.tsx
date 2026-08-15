@@ -148,6 +148,18 @@ export function HomeSection() {
             <ValuePropCard key={prop.title} {...prop} index={i} />
           ))}
         </div>
+
+        <p className="mt-8 text-sm text-ink-secondary">
+          New to sourcing from India?{' '}
+          <a
+            href={routeHref('guide')}
+            onClick={(e) => handleRouteLinkClick(e, () => navigate('guide'))}
+            className="font-semibold text-green underline underline-offset-2 hover:text-green-mid"
+          >
+            Read our guide to choosing an essential oil export partner
+          </a>
+          .
+        </p>
       </div>
     </section>
   );

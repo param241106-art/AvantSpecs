@@ -42,6 +42,11 @@ describe('getRouteFromPath', () => {
     window.history.pushState({}, '', `${base}product/eucalyptus-oil`);
     expect(getRouteFromPath()).toBe('product');
   });
+
+  it('maps the guide path to the guide route', () => {
+    window.history.pushState({}, '', `${base}guide/how-to-choose-an-essential-oil-export-partner`);
+    expect(getRouteFromPath()).toBe('guide');
+  });
 });
 
 describe('navigate', () => {
@@ -57,6 +62,7 @@ describe('routeHref / productHref', () => {
   it('resolves route paths', () => {
     expect(routeHref('home')).toBe(base);
     expect(routeHref('contact')).toBe(`${base}contact`);
+    expect(routeHref('guide')).toBe(`${base}guide/how-to-choose-an-essential-oil-export-partner`);
   });
 
   it('resolves a product path with the id encoded', () => {

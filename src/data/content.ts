@@ -296,3 +296,87 @@ export const stats = [
   { value: 48, suffix: 'h', label: 'Quote response window' },
   { value: 8, suffix: '', label: 'Documents per consignment' },
 ];
+
+export type ChecklistItem = {
+  title: string;
+  description: string;
+};
+
+// Content for /guide/how-to-choose-an-essential-oil-export-partner.
+// IMPORTANT: this text is hand-duplicated (not imported) into
+// scripts/prerender-shells.mjs, both as static article HTML and as the
+// FAQPage JSON-LD, following the same pattern already used there for
+// `routes` and `products` (see that file's top comment — this Node script
+// has no tsx/ts-node to import .ts files). If this content changes, update
+// prerender-shells.mjs to match, word for word, or the static shell served
+// to non-JS crawlers will drift from what this component renders.
+export const guideChecklist: ChecklistItem[] = [
+  {
+    title: 'Batch-specific testing, not a generic spec sheet',
+    description:
+      'Ask whether they run GC-MS constituent profiling plus microbial and heavy-metal panels on every batch, and whether the COA you receive is for your actual lot or a template. AvantSpecs generates a batch-specific Certificate of Analysis before any consignment is cleared to ship.',
+  },
+  {
+    title: 'Traceability to origin',
+    description:
+      'A legitimate exporter can tell you the batch number, harvest year, origin district, and extraction method and date for what you are buying, not just a product name.',
+  },
+  {
+    title: 'Transparent MOQ and sample policy',
+    description:
+      'MOQ should be stated upfront (commonly 25 kg for essential oils, 10 kg for oleoresins), and a small sample with its own COA should be available before you commit to a bulk order.',
+  },
+  {
+    title: 'Response time',
+    description:
+      'Time a request for quote. A well-run trade desk should confirm pricing and terms within 48 hours; a multi-week silence on a simple RFQ is a signal to look elsewhere.',
+  },
+  {
+    title: 'Certificate coverage for your destination market',
+    description:
+      'The exporter should ask where you are importing to and map the exact certificate set your market requires (REACH for Europe, Halaal for the Middle East, USFDA-relevant documentation for the US) before shipment, not after your goods are held at customs.',
+  },
+  {
+    title: 'The full document set at shipment',
+    description:
+      'Confirm the consignment will ship with COA, TDS, SDS, Certificate of Origin, Phytosanitary Certificate, Commercial Invoice and Packing List, Bill of Lading, and an Allergen/Non-GMO Declaration — eight documents, not just an invoice and a COA.',
+  },
+];
+
+export const guideFaqs: FAQItem[] = [
+  {
+    question: 'What documents come with a bulk essential oil shipment from India?',
+    answer:
+      'A properly documented consignment ships with a Certificate of Analysis (COA), Technical Data Sheet (TDS), Safety Data Sheet (SDS), Certificate of Origin, Phytosanitary Certificate, Commercial Invoice and Packing List, Bill of Lading, and an Allergen/Non-GMO Declaration. Ask for this full set before you commit to an order, not just a COA.',
+  },
+  {
+    question: "What's a typical MOQ for essential oils and spices from India?",
+    answer:
+      'Minimum order quantities vary by product: essential oils typically start around 25 kg, oleoresins around 10 kg, and high-value spices like saffron can be as low as 500 g. Reputable exporters can also send a sample under 1 kg with COA before you commit to a bulk order.',
+  },
+  {
+    question: 'How is quality verified before an essential oil shipment leaves India?',
+    answer:
+      'Each batch should undergo GC-MS constituent profiling to confirm key actives, along with microbial and heavy-metal panels and organoleptic evaluation. A Certificate of Analysis is generated for that specific batch before it is cleared to ship — if a lot does not meet the agreed specification, it should not leave the warehouse.',
+  },
+  {
+    question: 'Can I get a sample before placing a bulk order?',
+    answer:
+      'Yes, and you should insist on it. A legitimate exporter provides a 10-50 g sample with its own COA so you can verify quality before committing. Sample shipping costs are typically borne by the buyer and credited against the first bulk order.',
+  },
+  {
+    question: 'How long does it take to get a quote, and how long does shipping take?',
+    answer:
+      'A responsive export desk should confirm pricing and terms within 48 hours of a request. Shipping lead times then run roughly 7-10 days by air freight or 25-35 days by sea freight, depending on your destination region and the documentation required for customs clearance.',
+  },
+  {
+    question: 'What certifications should I ask for based on my destination market?',
+    answer:
+      'The certificate set differs by region: buyers in Europe typically need REACH-compliant documentation and allergen declarations, while buyers in the Middle East need Halaal certification and Arabic-labelled documentation; US buyers should ask about USFDA-relevant documentation. Tell your exporter your destination market at the quote stage so they can confirm the exact certificate set before you commit.',
+  },
+  {
+    question: "What's the difference between an essential oil manufacturer and a merchant export house?",
+    answer:
+      'A manufacturer or distiller processes the raw material but may not handle international documentation, freight, or destination-market compliance. A merchant export house like AvantSpecs does not manufacture; it sources from origin, tests and verifies each batch, and handles the documentation and logistics needed to get a compliant shipment to your dock.',
+  },
+];

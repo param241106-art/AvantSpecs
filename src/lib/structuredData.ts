@@ -1,4 +1,4 @@
-import type { Product, TeamMember } from '@/data/content';
+import type { FAQItem, Product, TeamMember } from '@/data/content';
 import { categoryLabels } from '@/data/content';
 
 // Single source of truth for JSON-LD @id values and the site origin, so the
@@ -116,5 +116,26 @@ export function productSchema(product: Product) {
         description: `Quote-based pricing, MOQ-gated at ${product.moq}. Contact the trade desk for a quotation.`,
       },
     },
+  };
+}
+
+/**
+ * FAQPage graph for a page's on-screen Q&A list. `items` must be the exact
+ * same array the page renders (see GuidePage.tsx) so the emitted
+ * question/answer text always matches what a visitor — or crawler reading
+ * only the prerendered HTML — actually sees.
+ */
+export function faqPageSchema(items: FAQItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
   };
 }
