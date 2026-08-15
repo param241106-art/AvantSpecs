@@ -1,0 +1,112 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AvantSpecs RFQ Submission API",
+    "description": "Public write endpoint used by the AvantSpecs Order Portal (see https://avantspecs.com/register) to submit a Request for Quote. This is the same PostgREST endpoint the site's own front end calls after a buyer completes the Order Portal form. Row Level Security restricts this endpoint to INSERT only — there is no public read, update, or delete access to submitted data.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "AvantSpecs Trade Desk",
+      "email": "param@avantspecs.com",
+      "url": "https://avantspecs.com/contact"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://wkpnnmjjkicsplvwcebk.supabase.co/rest/v1",
+      "description": "Production (Supabase-hosted PostgREST)"
+    }
+  ],
+  "paths": {
+    "/rfq_submissions": {
+      "post": {
+        "operationId": "createRfqSubmission",
+        "summary": "Submit a Request for Quote",
+        "description": "Creates a new RFQ record. Requires the project's public anon API key (safe to expose client-side; RLS grants this key INSERT-only access to this table, no SELECT/UPDATE/DELETE). A best-effort confirmation email is sent separately by the AvantSpecs front end after a successful insert — that email step is internal and not part of this public API surface.",
+        "security": [{ "supabaseAnonKey": [] }],
+        "parameters": [
+          {
+            "name": "Prefer",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string", "default": "return=minimal", "enum": ["return=minimal", "return=representation"] },
+            "description": "Set to return=representation to have the created row echoed back in the response body."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RfqSubmissionInput" },
+              "example": {
+                "reference": "AVS-2026-7K2QX",
+                "products": ["saffron", "cumin-seed"],
+                "volume": "500-1000kg",
+                "incoterm": "FOB",
+                "port": "Nhava Sheva",
+                "company": "Example Formulators Ltd",
+                "country": "Germany",
+                "contact_name": "Jane Buyer",
+                "email": "jane@example-formulators.example",
+                "phone": "+49 30 1234567",
+                "notes": "Need COA and TDS with the first shipment."
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "RFQ submission created. Body is empty unless Prefer: return=representation was sent.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/RfqSubmissionRecord" }
+              }
+            }
+          },
+          "400": { "description": "Malformed request body." },
+          "401": { "description": "Missing or invalid apikey / Authorization header." }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "supabaseAnonKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "apikey",
+        "description": "Supabase project anon key. Must also be repeated as a Bearer token in the Authorization header (Authorization: Bearer <anon key>). This key is public by design — access is limited entirely by the table's Row Level Security policy, which permits INSERT only."
+      }
+    },
+    "schemas": {
+      "RfqSubmissionInput": {
+        "type": "object",
+        "required": ["reference"],
+        "properties": {
+          "reference": { "type": "string", "description": "Client-generated reference code, format AVS-<year>-<5 alphanumeric chars>.", "example": "AVS-2026-7K2QX" },
+          "products": { "type": "array", "items": { "type": "string" }, "description": "Product IDs from the register (see /register), e.g. \"saffron\", \"cumin-seed\"." },
+          "volume": { "type": "string", "description": "Requested order volume range." },
+          "incoterm": { "type": "string", "description": "Requested Incoterm, e.g. FOB, CIF, EXW." },
+          "port": { "type": "string", "description": "Destination or loading port." },
+          "company": { "type": "string" },
+          "country": { "type": "string" },
+          "contact_name": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "phone": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      },
+      "RfqSubmissionRecord": {
+        "allOf": [
+          { "$ref": "#/components/schemas/RfqSubmissionInput" },
+          {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "format": "uuid" },
+              "created_at": { "type": "string", "format": "date-time" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

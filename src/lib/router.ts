@@ -1,6 +1,15 @@
 import { useEffect, useState } from 'react';
 
-export type Route = 'home' | 'register' | 'house' | 'about' | 'trade' | 'contact' | 'product' | 'guide';
+export type Route =
+  | 'home'
+  | 'register'
+  | 'house'
+  | 'about'
+  | 'trade'
+  | 'contact'
+  | 'product'
+  | 'guide'
+  | 'docs-rfq-api';
 
 // Real pathnames (relative to the app's base) — these must be unique, crawlable
 // URLs so Google can index and rank each page independently. Previously this
@@ -15,6 +24,7 @@ const routeMap: Record<string, Route> = {
   '/trade': 'trade',
   '/contact': 'contact',
   '/guide/how-to-choose-an-essential-oil-export-partner': 'guide',
+  '/docs/rfq-api': 'docs-rfq-api',
 };
 
 const pathForRoute: Record<Exclude<Route, 'product'>, string> = {
@@ -25,6 +35,7 @@ const pathForRoute: Record<Exclude<Route, 'product'>, string> = {
   trade: '/trade',
   contact: '/contact',
   guide: '/guide/how-to-choose-an-essential-oil-export-partner',
+  'docs-rfq-api': '/docs/rfq-api',
 };
 
 // A custom event fired on every programmatic navigation. `popstate` alone

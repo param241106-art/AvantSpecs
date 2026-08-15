@@ -45,6 +45,11 @@ const routeHead: Record<Exclude<Route, 'product'>, { title: string; description:
     description:
       'A buyer’s essential oil exporter documentation checklist covering COA, TDS, and SDS, plus a step-by-step framework for how to vet a spice export supplier in India: what documentation to expect, how testing should work, and the certificate set your destination market requires.',
   },
+  'docs-rfq-api': {
+    title: 'RFQ Submission API Reference | AvantSpecs',
+    description:
+      'API reference for the AvantSpecs RFQ submission endpoint: required headers, request body fields, an example request, and a link to the full OpenAPI definition.',
+  },
 };
 
 // Home is the default route and stays eager so the first paint has no
@@ -65,6 +70,9 @@ const ProductDetailPage = lazy(() =>
   import('@/pages/ProductDetailPage').then((m) => ({ default: m.ProductDetailPage })),
 );
 const GuidePage = lazy(() => import('@/pages/GuidePage').then((m) => ({ default: m.GuidePage })));
+const DocsRfqApiPage = lazy(() =>
+  import('@/pages/DocsRfqApiPage').then((m) => ({ default: m.DocsRfqApiPage })),
+);
 
 function RouteFallback() {
   return (
@@ -111,6 +119,7 @@ export default function App() {
             {route === 'contact' && <ContactPage />}
             {route === 'product' && <ProductDetailPage productId={productId} />}
             {route === 'guide' && <GuidePage />}
+            {route === 'docs-rfq-api' && <DocsRfqApiPage />}
           </Suspense>
         )}
       </main>

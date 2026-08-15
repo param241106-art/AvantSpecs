@@ -1,0 +1,21 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://wkpnnmjjkicsplvwcebk.supabase.co/rest/v1/rfq_submissions",
+      "service-desc": [
+        {
+          "href": "https://avantspecs.com/openapi/rfq-submissions.json",
+          "type": "application/vnd.oai.openapi+json;version=3.0",
+          "title": "RFQ Submission API — OpenAPI 3.0 definition"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://avantspecs.com/docs/rfq-api",
+          "type": "text/html",
+          "title": "RFQ Submission API — human-readable reference"
+        }
+      ]
+    }
+  ]
+}
