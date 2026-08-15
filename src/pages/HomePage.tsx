@@ -5,14 +5,14 @@ import { navigateToOrderPortalWithProduct } from '@/lib/router';
 import { useCallback, useMemo } from 'react';
 import { useStructuredData } from '@/lib/hooks';
 import { organizationSchema } from '@/lib/structuredData';
-import { team } from '@/data/content';
+import { team, certifications } from '@/data/content';
 
 export function HomePage() {
   const handleRequestSpecs = useCallback((productId: string) => {
     navigateToOrderPortalWithProduct(productId);
   }, []);
 
-  useStructuredData(useMemo(() => organizationSchema(team), []));
+  useStructuredData(useMemo(() => organizationSchema(team, certifications), []));
 
   return (
     <>

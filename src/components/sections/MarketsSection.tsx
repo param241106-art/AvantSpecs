@@ -1,10 +1,19 @@
-import { Globe, FileText, Info } from 'lucide-react';
+import { Globe, Award, FileText, Info, ShieldCheck, BadgeCheck, ClipboardCheck } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Section, SectionHeader, CTABand } from '@/components/Section';
 import { Picture } from '@/components/Picture';
 import { InteractiveMap } from '@/components/sections/InteractiveMap';
 import { useReveal } from '@/lib/hooks';
-import { regions, shipmentDocuments } from '@/data/content';
-import type { Region, ShipmentDocument } from '@/data/content';
+import { regions, shipmentDocuments, certifications } from '@/data/content';
+import type { Region, ShipmentDocument, Certification } from '@/data/content';
+
+// Distinct small icon per certification — standing in for a logo without
+// reproducing any certifying body's actual trademarked/regulated mark.
+const certIcons: Record<string, LucideIcon> = {
+  FSSAI: ShieldCheck,
+  'ISO 9001': BadgeCheck,
+  'ISO 22000': ClipboardCheck,
+};
 
 function RegionCard({ region, index }: { region: Region; index: number }) {
   const { ref, visible } = useReveal();
@@ -36,6 +45,24 @@ function RegionCard({ region, index }: { region: Region; index: number }) {
   );
 }
 
+function CertCard({ cert, index }: { cert: Certification; index: number }) {
+  const { ref, visible } = useReveal();
+  const Icon = certIcons[cert.code] ?? Award;
+  return (
+    <div
+      ref={ref}
+      className={`card card-glow relative overflow-hidden p-6 reveal ${visible ? 'is-visible' : ''}`}
+      style={{ transitionDelay: `${index * 60}ms` }}
+    >
+      <div className="flex h-12 w-12 items-center justify-center rounded-md bg-gold-tint text-gold">
+        <Icon size={22} />
+      </div>
+      <h3 className="mt-4 text-base">{cert.code}</h3>
+      <p className="mt-2 text-xs leading-relaxed text-ink-secondary">{cert.description}</p>
+    </div>
+  );
+}
+
 function DocRow({ doc, index }: { doc: ShipmentDocument; index: number }) {
   const { ref, visible } = useReveal();
   return (
@@ -58,6 +85,7 @@ function DocRow({ doc, index }: { doc: ShipmentDocument; index: number }) {
 export function MarketsSection() {
   const headerReveal = useReveal();
   const regionReveal = useReveal();
+  const certReveal = useReveal();
   const docReveal = useReveal();
 
   return (
@@ -83,6 +111,17 @@ export function MarketsSection() {
 
       <div className="container-wrap mt-12">
         <InteractiveMap />
+      </div>
+
+      <div ref={certReveal.ref} className="container-wrap mt-20">
+        <div id="certs" className="scroll-mt-20">
+          <p className="eyebrow flex items-center gap-2"><Award size={14} /> Certifications</p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {certifications.map((cert, i) => (
+              <CertCard key={cert.code} cert={cert} index={i} />
+            ))}
+          </div>
+        </div>
       </div>
 
       <div ref={docReveal.ref} className="container-wrap mt-20">

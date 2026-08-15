@@ -47,6 +47,12 @@ export type ShipmentDocument = {
   description: string;
 };
 
+export type Certification = {
+  code: string;
+  shortLabel: string;
+  description: string;
+};
+
 export type TeamMember = {
   name: string;
   role: string;
@@ -249,6 +255,12 @@ export const regions: Region[] = [
   },
 ];
 
+export const certifications: Certification[] = [
+  { code: 'FSSAI', shortLabel: 'FSSAI', description: 'Food Safety and Standards Authority of India license for food-grade handling.' },
+  { code: 'ISO 9001', shortLabel: 'ISO 9001', description: 'Quality management system certification covering sourcing and export operations.' },
+  { code: 'ISO 22000', shortLabel: 'ISO 22000', description: 'Food safety management system for handling edible-grade oils and oleoresins.' },
+];
+
 export const shipmentDocuments: ShipmentDocument[] = [
   { code: 'COA', name: 'Certificate of Analysis', description: 'Batch-specific lab report listing key constituents, microbial, and heavy-metal results.' },
   { code: 'TDS', name: 'Technical Data Sheet', description: 'Product specification sheet with physical, chemical, and organoleptic properties.' },
@@ -320,13 +332,9 @@ export type ChecklistItem = {
 };
 
 // Content for /guide/how-to-choose-an-essential-oil-export-partner.
-// IMPORTANT: this text is hand-duplicated (not imported) into
-// scripts/prerender-shells.mjs, both as static article HTML and as the
-// FAQPage JSON-LD, following the same pattern already used there for
-// `routes` and `products` (see that file's top comment — this Node script
-// has no tsx/ts-node to import .ts files). If this content changes, update
-// prerender-shells.mjs to match, word for word, or the static shell served
-// to non-JS crawlers will drift from what this component renders.
+// scripts/prerender.mjs renders this page through a real headless browser
+// after `vite build`, so it picks up whatever this data renders to
+// automatically — no manual duplication into a prerender script needed.
 export const guideChecklist: ChecklistItem[] = [
   {
     title: 'Batch-specific testing, not a generic spec sheet',

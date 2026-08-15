@@ -1,4 +1,4 @@
-import type { FAQItem, Product, TeamMember } from '@/data/content';
+import type { Certification, FAQItem, Product, TeamMember } from '@/data/content';
 import { categoryLabels } from '@/data/content';
 
 // Single source of truth for JSON-LD @id values and the site origin, so the
@@ -10,9 +10,10 @@ const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 /**
  * Organization + WebSite graph for the homepage only. Every field is pulled
  * from content already live elsewhere in the app (ContactSection's address/
- * email/phone, content.ts's `team`) — nothing here is invented.
+ * email/phone, content.ts's `team` and `certifications`) — nothing here is
+ * invented.
  */
-export function organizationSchema(team: TeamMember[]) {
+export function organizationSchema(team: TeamMember[], certifications: Certification[]) {
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -44,6 +45,12 @@ export function organizationSchema(team: TeamMember[]) {
           '@type': 'Person',
           name: member.name,
           jobTitle: member.role,
+        })),
+        hasCredential: certifications.map((cert) => ({
+          '@type': 'EducationalOccupationalCredential',
+          credentialCategory: cert.code === 'FSSAI' ? 'license' : 'certification',
+          name: cert.code,
+          description: cert.description,
         })),
         contactPoint: [
           {
