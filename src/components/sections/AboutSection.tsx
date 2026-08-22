@@ -86,6 +86,7 @@ export function AboutSection() {
             eyebrow="The House"
             title="The House of AvantSpecs"
             description="A newly launched, boutique trade house based in Rohtak, India. We are not a manufacturer; we are a merchant exporter, which means our job is to find the right product, verify it, document it, and deliver it. Every consignment is fully documented to spec."
+            headingLevel="h1"
           />
         </div>
       </div>

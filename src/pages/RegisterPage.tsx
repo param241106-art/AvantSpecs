@@ -30,7 +30,7 @@ export function RegisterPage() {
 
   return (
     <>
-      <ProductsSection onRequestSpecs={handleRequestSpecs} />
+      <ProductsSection onRequestSpecs={handleRequestSpecs} headingLevel="h1" />
       <OrderPortalSection preselectedProduct={preselectedProduct} resetSignal={resetSignal} />
     </>
   );

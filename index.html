@@ -46,22 +46,33 @@
     />
     <meta name="twitter:image" content="https://avantspecs.com/images/Shipping.jpg" />
 
+    <!--
+      display=optional (not swap): with the async media=print/onload swap-in
+      below, the stylesheet often finishes loading after first paint. With
+      display=swap, that late arrival re-flows every element sized by this
+      text — the SEO audit's Lighthouse run measured a 0.499 CLS on the
+      product template from exactly this, attributed to the footer moving
+      as the swap re-flowed everything above it. display=optional gives the
+      webfont a short window to arrive before first paint and otherwise
+      keeps the fallback for the rest of that pageview (no later swap, no
+      shift) — the font is still fetched and cached for next visit.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Jost:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Jost:wght@500;600;700&display=optional"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Jost:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Jost:wght@500;600;700&display=optional"
       rel="stylesheet"
       media="print"
       onload="this.media='all'"
     />
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Jost:wght@500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Jost:wght@500;600;700&display=optional"
         rel="stylesheet"
       />
     </noscript>

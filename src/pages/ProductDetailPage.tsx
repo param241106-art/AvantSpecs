@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, ShieldCheck } from 'lucide-react';
 import { Section, CTABand } from '@/components/Section';
 import { Picture } from '@/components/Picture';
 import { navigate, navigateToOrderPortalWithProduct, routeHref, handleRouteLinkClick } from '@/lib/router';
-import { products, categoryLabels } from '@/data/content';
+import { products, categoryLabels, certifications } from '@/data/content';
 import { useStructuredData } from '@/lib/hooks';
 import { productSchema } from '@/lib/structuredData';
 
@@ -67,7 +67,9 @@ export function ProductDetailPage({ productId }: Props) {
               alt={product.name}
               width={760}
               height={425}
-              className="aspect-[4/3] w-full object-cover"
+              loading="eager"
+              fetchPriority="high"
+              className="aspect-[4/3] max-h-[280px] w-full object-cover sm:max-h-none"
             />
           </div>
 
@@ -89,10 +91,43 @@ export function ProductDetailPage({ productId }: Props) {
               ))}
             </dl>
 
+            <div className="mt-6 rounded-md border border-line bg-green-tint p-5">
+              <p className="flex items-center gap-2 text-sm font-semibold text-green">
+                <ShieldCheck size={17} /> Verified & Documented
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-ink-secondary">
+                Every batch of {product.name} undergoes GC-MS constituent profiling plus
+                microbial and heavy-metal panels before it ships, and{' '}
+                {product.coaAvailable
+                  ? 'ships with a Certificate of Analysis for that specific lot'
+                  : 'is verified against the agreed specification'}
+                , not a generic spec sheet.{' '}
+                <a
+                  href={routeHref('guide')}
+                  onClick={(e) => handleRouteLinkClick(e, () => navigate('guide'))}
+                  className="font-semibold text-green underline underline-offset-2 hover:text-green-mid"
+                >
+                  See how we test and document every consignment
+                </a>
+                .
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {certifications.map((cert) => (
+                  <span
+                    key={cert.code}
+                    className="badge border-green/20 bg-white text-green"
+                    title={cert.description}
+                  >
+                    {cert.shortLabel}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             <button
               type="button"
               onClick={() => navigateToOrderPortalWithProduct(product.id)}
-              className="btn-gold mt-8"
+              className="btn-gold mt-6"
             >
               Request a Quote for {product.name}
             </button>

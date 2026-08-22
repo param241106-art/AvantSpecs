@@ -56,6 +56,7 @@ export function LeadershipSection() {
             eyebrow="About Us"
             title="The people behind AvantSpecs"
             description="A newly launched, boutique trade house based in Rohtak, India, run by a small team with named contacts you can reach directly."
+            headingLevel="h1"
           />
         </div>
 

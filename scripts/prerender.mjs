@@ -96,6 +96,32 @@ async function waitForRouteReady(page) {
   );
 }
 
+// useReveal and useCountUp (src/lib/hooks.ts) gate their effect — fading a
+// card in, counting a stat up from 0 — behind an IntersectionObserver that
+// only fires once the element is actually scrolled into view. A capture
+// taken at scrollY=0 right after waitForRouteReady freezes those elements in
+// their pre-animation state forever for any crawler that doesn't execute JS
+// (GPTBot, ClaudeBot, PerplexityBot) — e.g. HomeSection's stat counters
+// getting baked into the static HTML as literal "0". Scrolling the whole
+// page top to bottom before capturing triggers every one of those
+// observers, and the trailing wait lets useCountUp's 1s ease-out finish, so
+// the snapshot reflects real end-state content, not an empty first frame.
+async function settleScrollTriggeredAnimations(page) {
+  await page.evaluate(async () => {
+    const step = 400;
+    const delay = (ms) => new Promise((r) => setTimeout(r, ms));
+    let y = 0;
+    const max = document.body.scrollHeight;
+    while (y < max) {
+      y += step;
+      window.scrollTo(0, y);
+      await delay(50);
+    }
+  });
+  await new Promise((r) => setTimeout(r, 1100));
+  await page.evaluate(() => window.scrollTo(0, 0));
+}
+
 async function writeRoute(urlPath, html) {
   const outDir = urlPath === '/' ? dist : path.join(dist, urlPath.replace(/^\//, ''));
   await mkdir(outDir, { recursive: true });
@@ -119,6 +145,7 @@ async function main() {
     for (const urlPath of routes) {
       await page.goto(`http://127.0.0.1:${port}${urlPath}`, { waitUntil: 'networkidle0' });
       await waitForRouteReady(page);
+      await settleScrollTriggeredAnimations(page);
       const html = await page.content();
       await writeRoute(urlPath, html);
       count++;

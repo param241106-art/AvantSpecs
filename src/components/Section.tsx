@@ -28,6 +28,12 @@ type SectionHeaderProps = {
   title: string;
   description?: string;
   align?: 'left' | 'center';
+  // Every route needs exactly one real <h1>. Most SectionHeaders sit inside
+  // a page that already has its own h1 elsewhere (e.g. HomeSection's hero),
+  // so this defaults to h2 — pass "h1" only from the single SectionHeader
+  // that is a standalone page's top heading (see RegisterPage, AboutSection,
+  // LeadershipSection, MarketsSection, ContactSection).
+  headingLevel?: 'h1' | 'h2';
 };
 
 export function SectionHeader({
@@ -35,11 +41,13 @@ export function SectionHeader({
   title,
   description,
   align = 'left',
+  headingLevel = 'h2',
 }: SectionHeaderProps) {
+  const Heading = headingLevel;
   return (
     <div className={align === 'center' ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'}>
       <p className="eyebrow">{eyebrow}</p>
-      <h2 className="mt-3 text-4xl leading-tight md:text-5xl">{title}</h2>
+      <Heading className="mt-3 text-4xl leading-tight md:text-5xl">{title}</Heading>
       <span className={`heading-accent ${align === 'center' ? 'mx-auto' : ''}`} />
       {description && (
         <p className="mt-4 text-base leading-relaxed text-ink-secondary">{description}</p>

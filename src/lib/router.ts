@@ -77,13 +77,21 @@ export function productHref(productId: string): string {
  * production domain root (avantspecs.com), regardless of how the app is
  * currently being served (e.g. a GitHub Pages sub-path). Use this for
  * canonical URLs, not `routeHref`, which is base-aware for actual `<a href>`
- * attributes so links still work when previewed under a sub-path. */
+ * attributes so links still work when previewed under a sub-path.
+ *
+ * Trailing slash included (except '/' itself): scripts/prerender.mjs writes
+ * each non-home route to dist/<route>/index.html, so both GitHub Pages and
+ * the GoDaddy/Apache .htaccess fallback serve it from — and 301-redirect a
+ * bare, no-slash request to — the trailing-slash URL. The canonical tag has
+ * to match that actual served URL, or Google is told to canonicalize to a
+ * URL that immediately redirects elsewhere. */
 export function canonicalPathForRoute(route: Exclude<Route, 'product'>): string {
-  return pathForRoute[route];
+  const path = pathForRoute[route];
+  return path === '/' ? path : `${path}/`;
 }
 
 export function canonicalPathForProduct(productId: string): string {
-  return `/product/${encodeURIComponent(productId)}`;
+  return `/product/${encodeURIComponent(productId)}/`;
 }
 
 function getProductIdFromPath(): string | null {

@@ -96,6 +96,7 @@ export function MarketsSection() {
             eyebrow="Trade & Markets"
             title="Shipping from India to the world"
             description="Two regional desks, each with the documentation set its buyers need for customs clearance. Tell us your destination market at RFQ stage and we map the exact certificate set required."
+            headingLevel="h1"
           />
         </div>
       </div>

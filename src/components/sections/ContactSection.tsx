@@ -102,6 +102,7 @@ export function ContactSection() {
             eyebrow="Contact"
             title="Reach the trade desk"
             description="For questions about products, documentation, or shipping, or if you are not ready for a full RFQ. We respond within 48 hours."
+            headingLevel="h1"
           />
         </div>
       </div>

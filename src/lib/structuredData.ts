@@ -113,7 +113,10 @@ export function productSchema(product: Product) {
     '@type': 'Product',
     name: product.name,
     alternateName: product.latinBinomial,
-    url: `${SITE_URL}/product/${product.id}`,
+    // Trailing slash to match the URL the server actually serves (and what
+    // canonicalPathForProduct emits) — see router.ts's canonicalPathForRoute
+    // doc comment for why.
+    url: `${SITE_URL}/product/${product.id}/`,
     image: product.photoUrl.startsWith('/') ? `${SITE_URL}${product.photoUrl}` : product.photoUrl,
     description: product.description,
     category: categoryLabels[product.category],

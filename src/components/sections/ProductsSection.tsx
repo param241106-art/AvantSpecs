@@ -11,9 +11,13 @@ type Filter = 'all' | Product['category'];
 
 type Props = {
   onRequestSpecs: (productId: string) => void;
+  // See SectionHeader's headingLevel doc — this section is shared between
+  // HomePage (which already has its own h1 in HomeSection) and RegisterPage
+  // (where this is the page's only heading), so the caller decides.
+  headingLevel?: 'h1' | 'h2';
 };
 
-export function ProductsSection({ onRequestSpecs }: Props) {
+export function ProductsSection({ onRequestSpecs, headingLevel }: Props) {
   const [filter, setFilter] = useState<Filter>('all');
   const [search, setSearch] = useState('');
   const headerReveal = useReveal();
@@ -48,6 +52,7 @@ export function ProductsSection({ onRequestSpecs }: Props) {
             eyebrow="The Product Register"
             title="Browse available SKUs"
             description={`${products.length} core products in register. Filter by category or search by product name or Latin binomial. Click "Request Specs" on any card to start a quote.`}
+            headingLevel={headingLevel}
           />
         </div>
       </div>
