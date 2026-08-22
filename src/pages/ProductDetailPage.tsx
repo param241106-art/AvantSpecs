@@ -145,6 +145,28 @@ export function ProductDetailPage({ productId }: Props) {
           secondaryRoute="register"
         />
       </div>
+
+      {/* Reserves scroll space so the fixed bar below never covers the
+          CTABand/Footer at the bottom of the page — see the audit finding
+          about the RFQ CTA being unreachable without scrolling on mobile. */}
+      <div className="h-20 sm:hidden" aria-hidden="true" />
+
+      {/* Sticky mobile RFQ bar: on a narrow viewport the inline "Request a
+          Quote" button above is several screens down (hero image + facts +
+          trust block), so this keeps the primary conversion action reachable
+          without scrolling. Desktop already surfaces it in the Navbar. */}
+      <div
+        className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-bg/95 px-4 py-3 shadow-soft backdrop-blur sm:hidden"
+        style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
+      >
+        <button
+          type="button"
+          onClick={() => navigateToOrderPortalWithProduct(product.id)}
+          className="btn-gold w-full"
+        >
+          Request a Quote
+        </button>
+      </div>
     </Section>
   );
 }
