@@ -1,0 +1,158 @@
+AVANTSPECS — BACKLINK OUTREACH KIT
+Prepared from the 2026-08-22 SEO audit (Backlink category: 15/100, Tier 0 —
+avantspecs.com has no detectable signal in Common Crawl's web graph, which
+is normal for a new/small site but means zero external authority right now).
+
+WHY THIS EXISTS
+----------------
+Nothing in the codebase can fabricate a backlink — a link only counts if a
+real third-party page links to avantspecs.com, and creating third-party
+accounts or submitting forms on your behalf is out of scope for an AI
+assistant regardless of permission. This kit does everything short of that:
+consistent, ready-to-paste business content so whoever manages the
+company's external listings (you, or a hire) can complete each signup in a
+few minutes with zero guesswork or inconsistency between sites.
+
+Search-quality note: submit to real, relevant directories only, using
+identical NAP details everywhere. Do NOT use paid "instant backlink" or
+link-farm services — those are the kind of manipulative link scheme Google's
+spam policies penalize, and would actively hurt rankings rather than help.
+
+===========================================================================
+1. NAP BLOCK — copy this exactly into every listing (consistency matters
+   more than the exact wording; inconsistent NAP data is itself a negative
+   trust signal)
+===========================================================================
+Business name:     AvantSpecs
+Legal/alt name:     AvantSpecs — Synergistic Herbal Solutions
+Website:            https://avantspecs.com/
+Category:           Botanical Ingredients Exporter / Merchant Export House
+                     (alt: Essential Oils & Spices Exporter, Agro Export House)
+Address:             Rohtak, Haryana, India 124001
+Email (sales/RFQ):  param@avantspecs.com
+Email (support):    aadi.singh@avantspecs.com
+Phone / WhatsApp:   +971 50 665 0173
+Founded / status:   Newly launched merchant export house
+Certifications:     FSSAI, ISO 9001, ISO 22000
+Export markets:     Europe (REACH-compliant docs), Middle East (Halaal-certified)
+
+===========================================================================
+2. SHORT DESCRIPTION (~40 words) — for directories with a tight character
+   limit (tagline/meta fields)
+===========================================================================
+AvantSpecs is a merchant export house in Rohtak, India, sourcing, GC-MS
+testing, and shipping essential oils, oleoresins, spices, nuts, powders,
+and eco disposables to wholesale buyers worldwide. Every consignment ships
+fully documented with COA, TDS, and SDS.
+
+===========================================================================
+3. LONG DESCRIPTION (~180 words) — for "About Us" / company-profile fields
+===========================================================================
+AvantSpecs is a merchant export house based in Rohtak, Haryana, India. We
+are not a manufacturer — we are a merchant exporter, which means our job is
+to source the right product from origin, verify it with GC-MS constituent
+profiling and microbial/heavy-metal testing, document it, and deliver it to
+formulators and flavour houses worldwide.
+
+Our current product register spans essential oils (eucalyptus, clove bud,
+lemongrass, citronella), an oleoresin (black pepper), spices (Kashmir
+saffron, cumin seed), cashew kernels, powders (guar gum, onion, potato),
+and compostable areca leaf tableware.
+
+Every consignment ships with a full documentation set: Certificate of
+Analysis, Technical Data Sheet, Safety Data Sheet, Certificate of Origin,
+Phytosanitary Certificate, Commercial Invoice & Packing List, Bill of
+Lading, and an Allergen/Non-GMO Declaration. We serve Europe (REACH-
+compliant documentation) and the Middle East (Halaal-certified
+consignments), with a stated 48-hour quote response window on every RFQ.
+
+Certifications: FSSAI, ISO 9001, ISO 22000.
+Website: https://avantspecs.com — request a quote at
+https://avantspecs.com/register/
+
+===========================================================================
+4. PRIORITIZED SUBMISSION TARGETS
+===========================================================================
+Do these roughly in order — each is free (or has a free tier), each is a
+directory real B2B buyers in this niche actually search, and each is
+exactly the class of citation Common Crawl/Moz will pick up on their next
+crawl.
+
+1. IndiaMART (indiamart.com)
+   The largest India B2B marketplace — buyers in this exact category search
+   it directly. Create a free Seller/Supplier account, list the company
+   under "Essential Oils / Spices Exporters," add all 12 SKUs as products
+   using the product names + descriptions already on /register/, and link
+   the company profile to https://avantspecs.com/.
+
+2. TradeIndia (tradeindia.com)
+   Second-largest Indian B2B directory, same category fit. Same approach as
+   IndiaMART: company profile + product listings linking back to the site.
+
+3. ExportersIndia (exportersindia.com)
+   India-specific export directory — strong relevance signal for an
+   "exporter" positioning specifically (as opposed to a domestic supplier).
+
+4. Global Sources (globalsources.com) or EC21 (ec21.com)
+   International B2B directories with real traffic from overseas buyers —
+   matches the actual target audience (formulators/flavour houses in
+   Europe and the Middle East) better than India-only directories.
+
+5. Google Business Profile (business.google.com)
+   Free. Not a classic "backlink" in the SEO sense, but it's the single
+   highest-trust NAP citation available and feeds Google's own knowledge
+   graph for the "AvantSpecs" entity — directly helps the GEO/AI-citability
+   score too (an AI system checking "does this business exist" finds this
+   first).
+
+6. APEDA registration listing (apeda.gov.in), if AvantSpecs holds or
+   pursues APEDA registration (relevant for agricultural/processed-food
+   exports from India) — a .gov.in citation carries real authority.
+
+7. Rohtak / Haryana Chamber of Commerce
+   A local chamber-of-commerce member directory listing is a legitimate,
+   low-effort citation tying the business to its real registered location.
+
+8. LinkedIn Company Page (linkedin.com/company/...)
+   Not purely a backlink, but closes the single biggest gap the audit's
+   GEO section flagged: "no confirmed Wikipedia/YouTube/Reddit/LinkedIn
+   presence." A populated LinkedIn company page with the same NAP block
+   above, linking to avantspecs.com, is worth doing before any of the
+   directory listings above.
+
+===========================================================================
+5. UNLOCK REAL BACKLINK DATA (so future audits aren't Tier-0 guesses)
+===========================================================================
+Right now `claude-seo`'s backlink checks only have Common Crawl (a quarterly
+sample) to go on — no Domain Authority, Page Authority, spam score, or
+referring-domain list. Two free signups fix that for every future audit run
+on this site:
+
+Moz (free, 2,500 rows/month):
+  1. Sign up at https://moz.com/products/api
+  2. Grab the API key from the Moz API dashboard
+  3. Create ~/.config/claude-seo/backlinks-api.json with:
+     {
+       "moz_api_key": "YOUR_KEY_HERE"
+     }
+
+Bing Webmaster Tools (free):
+  1. Sign up / verify avantspecs.com at https://www.bing.com/webmasters
+  2. Add the API key to the same file:
+     {
+       "moz_api_key": "YOUR_MOZ_KEY",
+       "bing_api_key": "YOUR_BING_KEY"
+     }
+  Bing Webmaster Tools also directly surfaces Bing's own index of inbound
+  links to the site — useful independent of the API key, just from logging
+  into the dashboard.
+
+===========================================================================
+6. WHAT NOT TO DO
+===========================================================================
+- Don't buy links or use "SEO backlink package" services — these are
+  detectable link schemes and risk a manual action, not a ranking boost.
+- Don't submit to irrelevant directories just to pad a number — Google
+  and Moz both discount (or penalize) low-relevance citations.
+- Don't use slightly different business names/addresses across listings —
+  pick the NAP block in section 1 and use it verbatim everywhere.
