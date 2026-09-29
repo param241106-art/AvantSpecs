@@ -1,6 +1,5 @@
 import { MapPin } from 'lucide-react';
 import { Section, SectionHeader, CTABand } from '@/components/Section';
-import { Picture } from '@/components/Picture';
 import { useReveal } from '@/lib/hooks';
 import { navigate, routeHref, handleRouteLinkClick } from '@/lib/router';
 import { team } from '@/data/content';
@@ -8,12 +7,6 @@ import type { TeamMember } from '@/data/content';
 
 function TeamCard({ member, index }: { member: TeamMember; index: number }) {
   const { ref, visible } = useReveal();
-  const initials = member.name
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
   return (
     <div
       ref={ref}
@@ -21,20 +14,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <div className="p-8">
-        {member.photoUrl ? (
-          <Picture
-            src={member.photoUrl}
-            alt={member.name}
-            width={288}
-            height={288}
-            className="h-36 w-36 rounded-full object-cover"
-          />
-        ) : (
-          <div className="flex h-36 w-36 items-center justify-center rounded-full bg-green font-heading text-4xl font-semibold text-white">
-            {initials}
-          </div>
-        )}
-        <h3 className="mt-6 text-xl">{member.name}</h3>
+        <h3 className="text-xl">{member.name}</h3>
         <p className="mt-1 flex items-center gap-1.5 text-sm text-gold">
           <MapPin size={13} /> {member.role}
         </p>
