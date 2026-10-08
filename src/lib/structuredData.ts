@@ -31,7 +31,7 @@ export function organizationSchema(team: TeamMember[], certifications: Certifica
         },
         image: `${SITE_URL}/images/logo.jpg`,
         description:
-          'AvantSpecs is a merchant export house sourcing, testing, and shipping essential oils, oleoresins, spices, nuts, powders, and eco disposables to wholesale buyers, formulators, and flavour houses worldwide.',
+          'AvantSpecs is a merchant export house sourcing, testing, and shipping essential oils, oleoresins, spices, nuts, dried fruits, powders, and eco disposables to wholesale buyers, formulators, and flavour houses worldwide.',
         email: 'param@avantspecs.com',
         telephone: '+971-50-665-0173',
         address: {
@@ -76,7 +76,7 @@ export function organizationSchema(team: TeamMember[], certifications: Certifica
         url: `${SITE_URL}/`,
         name: 'AvantSpecs',
         description:
-          'Merchant export house sourcing, testing, and shipping essential oils, oleoresins, spices, nuts, and powders to wholesale buyers worldwide.',
+          'Merchant export house sourcing, testing, and shipping essential oils, oleoresins, spices, nuts, dried fruits, and powders to wholesale buyers worldwide.',
         publisher: { '@id': ORGANIZATION_ID },
         inLanguage: 'en',
       },
@@ -99,8 +99,8 @@ export function productSchema(product: Product) {
   const additionalProperty = [
     { '@type': 'PropertyValue', name: 'Botanical name', value: product.latinBinomial },
     { '@type': 'PropertyValue', name: 'Processing method', value: product.extractionMethod },
-    { '@type': 'PropertyValue', name: 'Origin region', value: `${product.origin}, India` },
-    { '@type': 'PropertyValue', name: 'Minimum order quantity', value: product.moq },
+    { '@type': 'PropertyValue', name: 'Origin region', value: `${product.origin}, ${product.originCountry ?? 'India'}` },
+    ...(product.moq ? [{ '@type': 'PropertyValue', name: 'Minimum order quantity', value: product.moq }] : []),
     {
       '@type': 'PropertyValue',
       name: 'Certificate of Analysis',
@@ -127,7 +127,9 @@ export function productSchema(product: Product) {
       availability: 'https://schema.org/InStock',
       priceSpecification: {
         '@type': 'PriceSpecification',
-        description: `Quote-based pricing, MOQ-gated at ${product.moq}. Contact the trade desk for a quotation.`,
+        description: product.moq
+          ? `Quote-based pricing, MOQ-gated at ${product.moq}. Contact the trade desk for a quotation.`
+          : 'Quote-based pricing. Contact the trade desk for a quotation.',
       },
     },
   };

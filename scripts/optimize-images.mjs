@@ -36,6 +36,7 @@ const targets = {
   'Cumin.jpg': { width: 760 },
   'Areca_Plates.jpg': { width: 760 },
   'Cashews.jpg': { width: 760 },
+  'Medjool_Dates.jpg': { width: 760 },
   'Guar_Gum.jpg': { width: 760 },
   'Onion_Powder.jpg': { width: 760 },
   'Potato_Powder.jpg': { width: 760 },

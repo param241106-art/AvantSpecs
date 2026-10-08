@@ -7,19 +7,23 @@ export type Product = {
   // cards, the CTA button, and image alt text.
   seoTitle: string;
   latinBinomial: string;
-  category: 'oils' | 'oleoresins' | 'spices' | 'nuts' | 'powders' | 'disposables';
+  category: 'oils' | 'oleoresins' | 'spices' | 'nuts' | 'fruits' | 'powders' | 'disposables';
   extractionMethod:
     | 'Steam Distilled'
     | 'Solvent Extracted'
     | 'Hand-Harvested & Sun Dried'
+    | 'Tree-Ripened & Graded'
     | 'Cleaned & Sieved'
     | 'Roasted & Graded'
     | 'Milled & Sieved'
     | 'Dehydrated & Milled'
     | 'Heat-Pressed';
   origin: string;
+  // Country of origin when it isn't India (schema.org output appends ", India" by default).
+  originCountry?: string;
   description: string;
-  moq: string;
+  // Omitted while a product's minimum order quantity is still to be confirmed.
+  moq?: string;
   coaAvailable: boolean;
   photoUrl: string;
 };
@@ -29,6 +33,7 @@ export const categoryLabels: Record<Product['category'], string> = {
   oleoresins: 'Oleoresin',
   spices: 'Spice',
   nuts: 'Nut',
+  fruits: 'Dried Fruit',
   powders: 'Powder',
   disposables: 'Eco Disposable',
 };
@@ -192,6 +197,20 @@ export const products: Product[] = [
     photoUrl: '/images/Cashews.jpg',
   },
   {
+    id: 'medjool-dates',
+    name: 'Medjool Dates',
+    seoTitle: 'Jordan Medjool Dates Supplier',
+    latinBinomial: 'Phoenix dactylifera',
+    category: 'fruits',
+    extractionMethod: 'Tree-Ripened & Graded',
+    origin: 'Jordan',
+    originCountry: 'Jordan',
+    description:
+      'Large, soft, caramel-sweet Phoenix dactylifera Medjool dates, tree-ripened, hand-sorted, and graded by size for retail packing, confectionery, and food manufacturing, with consistent moisture content and a naturally rich texture. AvantSpecs supplies wholesale Jordan Medjool dates as a bulk Medjool dates supplier to importers and food brands worldwide.',
+    coaAvailable: true,
+    photoUrl: '/images/Medjool_Dates.jpg',
+  },
+  {
     id: 'guar-gum-powder',
     name: 'Guar Gum Powder',
     seoTitle: 'Guar Gum Powder Exporter India',
@@ -318,7 +337,7 @@ export const volumeOptions = [
 export const incotermOptions = ['EXW', 'FOB', 'CIF', 'DAP', 'DDP'];
 
 export const stats = [
-  { value: 12, suffix: '', label: 'Core SKUs in register' },
+  { value: 13, suffix: '', label: 'Core SKUs in register' },
   { value: 48, suffix: 'h', label: 'Quote response window' },
   { value: 8, suffix: '', label: 'Documents per consignment' },
 ];

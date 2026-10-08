@@ -13,12 +13,12 @@ const routeHead: Record<Exclude<Route, 'product'>, { title: string; description:
   home: {
     title: 'Botanical Export House India | AvantSpecs',
     description:
-      'AvantSpecs is a botanical export house in India, a merchant export house sourcing, GC-MS testing, and shipping essential oils, oleoresins, spices, nuts, powders, and eco disposables to wholesale buyers worldwide. As a documented, COA-backed essential oil and spice exporter, every consignment ships fully documented to spec.',
+      'AvantSpecs is a botanical export house in India, a merchant export house sourcing, GC-MS testing, and shipping essential oils, oleoresins, spices, nuts, dried fruits, powders, and eco disposables to wholesale buyers worldwide. As a documented, COA-backed essential oil and spice exporter, every consignment ships fully documented to spec.',
   },
   register: {
     title: 'Product Register | AvantSpecs',
     description:
-      'Browse AvantSpecs’ full product register: essential oils, oleoresins, spices, nuts, powders, and eco disposables, each with MOQ and COA availability. Filter by category or search by name or Latin binomial.',
+      'Browse AvantSpecs’ full product register: essential oils, oleoresins, spices, nuts, dried fruits, powders, and eco disposables, each with MOQ and COA availability. Filter by category or search by name or Latin binomial.',
   },
   house: {
     title: 'The House | AvantSpecs',

@@ -45,7 +45,7 @@ export function ProductDetailPage({ productId }: Props) {
   const facts: { label: string; value: string }[] = [
     { label: isExtracted ? 'Extraction Method' : 'Processing Method', value: product.extractionMethod },
     { label: 'Origin', value: product.origin },
-    { label: 'MOQ', value: product.moq },
+    ...(product.moq ? [{ label: 'MOQ', value: product.moq }] : []),
     { label: 'COA Available', value: product.coaAvailable ? 'Yes' : 'On request' },
   ];
 

@@ -40,6 +40,7 @@ export function ProductsSection({ onRequestSpecs, headingLevel }: Props) {
     { value: 'oleoresins', label: 'Oleoresins' },
     { value: 'spices', label: 'Spices' },
     { value: 'nuts', label: 'Nuts' },
+    { value: 'fruits', label: 'Dried Fruits' },
     { value: 'powders', label: 'Powders' },
     { value: 'disposables', label: 'Eco Disposables' },
   ];
@@ -186,9 +187,11 @@ function ProductCard({
           <span>{product.origin}</span>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
-          <span className="badge border-line bg-bg text-ink-secondary">
-            MOQ: {product.moq}
-          </span>
+          {product.moq && (
+            <span className="badge border-line bg-bg text-ink-secondary">
+              MOQ: {product.moq}
+            </span>
+          )}
           {product.coaAvailable && (
             <span className="badge border-green/20 bg-green-tint text-green">
               COA Available
