@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 import { ArrowRight, FileCheck, FlaskConical, Ship } from 'lucide-react';
 import { useReveal, useCountUp } from '@/lib/hooks';
-import { navigate, routeHref, handleRouteLinkClick } from '@/lib/router';
+import { navigate, navigateToProduct, productHref, routeHref, handleRouteLinkClick } from '@/lib/router';
 import { Picture } from '@/components/Picture';
 import { stats } from '@/data/content';
 
@@ -77,6 +77,17 @@ export function HomeSection() {
       <div className="container-wrap py-20 md:py-28">
         <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div ref={heroReveal.ref} className={`reveal ${heroReveal.visible ? 'is-visible' : ''}`}>
+            <a
+              href={productHref('medjool-dates')}
+              onClick={(e) => handleRouteLinkClick(e, () => navigateToProduct('medjool-dates'))}
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-sm font-semibold text-green transition-colors hover:border-gold hover:bg-gold/20"
+            >
+              <span className="rounded-full bg-gold px-2 py-0.5 font-label text-[0.65rem] uppercase tracking-wider text-white">
+                New
+              </span>
+              Medjool Dates from Jordan now in the register
+              <ArrowRight size={15} />
+            </a>
             <p className="eyebrow">Rohtak, India</p>
             <h1 className="mt-4 text-5xl leading-[1.05] md:text-7xl">
               A botanical export house in India, fully documented to spec.
