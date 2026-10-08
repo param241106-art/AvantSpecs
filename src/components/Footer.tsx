@@ -15,11 +15,11 @@ const navLinks: { label: string; route: Exclude<Route, 'product'> }[] = [
 ];
 
 const categoryLinks: { label: string; route: Exclude<Route, 'product'> }[] = [
+  { label: 'Dried Fruits', route: 'register' },
   { label: 'Essential Oils', route: 'register' },
   { label: 'Oleoresins', route: 'register' },
   { label: 'Spices', route: 'register' },
   { label: 'Nuts', route: 'register' },
-  { label: 'Dried Fruits', route: 'register' },
   { label: 'Powders', route: 'register' },
   { label: 'Eco Disposables', route: 'register' },
 ];
