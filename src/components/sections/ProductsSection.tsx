@@ -36,11 +36,11 @@ export function ProductsSection({ onRequestSpecs, headingLevel }: Props) {
 
   const tabs: { value: Filter; label: string }[] = [
     { value: 'all', label: 'All' },
+    { value: 'fruits', label: 'Dried Fruits' },
     { value: 'oils', label: 'Essential Oils' },
     { value: 'oleoresins', label: 'Oleoresins' },
     { value: 'spices', label: 'Spices' },
     { value: 'nuts', label: 'Nuts' },
-    { value: 'fruits', label: 'Dried Fruits' },
     { value: 'powders', label: 'Powders' },
     { value: 'disposables', label: 'Eco Disposables' },
   ];
