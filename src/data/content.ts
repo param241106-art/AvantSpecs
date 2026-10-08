@@ -71,6 +71,20 @@ export type FAQItem = {
 
 export const products: Product[] = [
   {
+    id: 'medjool-dates',
+    name: 'Medjool Dates',
+    seoTitle: 'Jordan Medjool Dates Supplier',
+    latinBinomial: 'Phoenix dactylifera',
+    category: 'fruits',
+    extractionMethod: 'Tree-Ripened & Graded',
+    origin: 'Jordan',
+    originCountry: 'Jordan',
+    description:
+      'Large, soft, caramel-sweet Phoenix dactylifera Medjool dates, tree-ripened, hand-sorted, and graded by size for retail packing, confectionery, and food manufacturing, with consistent moisture content and a naturally rich texture. AvantSpecs supplies wholesale Jordan Medjool dates as a bulk Medjool dates supplier to importers and food brands worldwide.',
+    coaAvailable: true,
+    photoUrl: '/images/Medjool_Dates.jpg',
+  },
+  {
     id: 'eucalyptus-oil',
     name: 'Eucalyptus Oil',
     seoTitle: 'Eucalyptus Oil Exporter India',
@@ -195,20 +209,6 @@ export const products: Product[] = [
     moq: '25 kg',
     coaAvailable: true,
     photoUrl: '/images/Cashews.jpg',
-  },
-  {
-    id: 'medjool-dates',
-    name: 'Medjool Dates',
-    seoTitle: 'Jordan Medjool Dates Supplier',
-    latinBinomial: 'Phoenix dactylifera',
-    category: 'fruits',
-    extractionMethod: 'Tree-Ripened & Graded',
-    origin: 'Jordan',
-    originCountry: 'Jordan',
-    description:
-      'Large, soft, caramel-sweet Phoenix dactylifera Medjool dates, tree-ripened, hand-sorted, and graded by size for retail packing, confectionery, and food manufacturing, with consistent moisture content and a naturally rich texture. AvantSpecs supplies wholesale Jordan Medjool dates as a bulk Medjool dates supplier to importers and food brands worldwide.',
-    coaAvailable: true,
-    photoUrl: '/images/Medjool_Dates.jpg',
   },
   {
     id: 'guar-gum-powder',
